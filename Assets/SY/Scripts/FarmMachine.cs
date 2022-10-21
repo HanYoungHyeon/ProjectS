@@ -18,6 +18,7 @@ public class FarmMachine : MonoBehaviour
     private bool isWater;
     public ScenePlant[] childPlant;
     public Crop tempCrop;
+    
 
     private void Start()
     {

@@ -21,9 +21,9 @@ public class UIEventFunc : MonoBehaviour
     }
     public void ChangeValue(Scrollbar target)
     {
-        if(isClick)
+        if (isClick)
         {
-            target.value += Input.GetAxis("Vertical") *0.5f;//컨트롤러 밸류 값 으로 변경
+            target.value += Input.GetAxis("Vertical") * 0.5f;
         }
     }
     public void ShowInfo()
@@ -32,7 +32,7 @@ public class UIEventFunc : MonoBehaviour
     }
     public void BuyUpgrade()
     {
-        //업그레이드 실행해보기
+
     }
     public void ChangeBool(bool value)
     {
