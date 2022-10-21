@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,21 @@ namespace BC
     public class VacuumPack : MonoBehaviour
     {
         [SerializeField]
-        Slot[] slots;
-        Slot curSlot;
-        int slotIndex;
+        ParticleSystem particle;
         [SerializeField]
-        float releasePower;
-        
+        private Slot[] slots;
+        private Slot curSlot;
+        [SerializeField]
+        private int slotIndex;
+        [SerializeField]
+        private float releasePower; 
         [SerializeField]
         private Collider[] vacuumPackColliders;
         public enum TYPE { slime, item }
         private enum MODE { absorption, release }
         public TYPE type = TYPE.slime;
         private MODE mode = MODE.absorption;
-        Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
+        private Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
    
         private void Update()
         {
@@ -74,6 +77,14 @@ namespace BC
             {
                 col.enabled = !col.enabled;
             }
+            if (particle.isPlaying)
+            {
+                particle.Stop();
+            }
+            else
+            {
+                particle.Play();
+            }
         }
 
         private void ItemRelease()
@@ -87,6 +98,7 @@ namespace BC
         {
             if (other.TryGetComponent(out IItemable target))
             {
+                bool isInteracted = false;
                 Item curItem = target.ItemRequest();
                 foreach(var slot in slots)
                 {
@@ -94,18 +106,22 @@ namespace BC
                     {
                         slot.ItemCount++;
                         target.ItemReturn();
+                        isInteracted = true;
                         break;
                     }
                 }
-                foreach(var slot in slots)
+                if(!isInteracted)
                 {
-                    if(slot.curSlotItem == null)
+                    foreach (var slot in slots)
                     {
-                        slot.AddItem(curItem);
-                        slotRelease[slot] = ReleaseCheck(curItem);
-                        slot.ItemCount++;
-                        target.ItemReturn();
-                        break;
+                        if (slot.curSlotItem == null)
+                        {
+                            slot.AddItem(curItem);
+                            slotRelease[slot] = ReleaseCheck(curItem);
+                            slot.ItemCount++;
+                            target.ItemReturn();
+                            break;
+                        }
                     }
                 }
             }
@@ -115,7 +131,7 @@ namespace BC
         private UnityAction ReleaseCheck(Item item)
         { 
             System.Type itemType = item.GetType();
-            if(itemType == System.Type.GetType(itemType.Name))
+            if (itemType == typeof(Gem))
             {
                 return ReleaseGem;
             }
@@ -129,7 +145,6 @@ namespace BC
             }
             return null;
         }
-
 
         private void ReleaseGem()
         {
