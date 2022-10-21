@@ -6,8 +6,5 @@ public class TestObjectPooling : MonoBehaviour, IPoolingable
 {
     public ObjectPool home { get; set; }
     public ObjectPoolCall objectPoolCall;
-    private void OnDisable()
-    {
-        objectPoolCall.curAmount--;
-    }
+
 }

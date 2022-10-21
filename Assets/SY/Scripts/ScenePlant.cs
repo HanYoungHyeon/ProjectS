@@ -34,6 +34,13 @@ public class ScenePlant : MonoBehaviour, IPoolingable
         StartCoroutine(SettingDelay());
         isWater = false;
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TimeChange();
+        }
+    }
     public void FirstSetting()
     {
         CropManager.Instance.timeChange += TimeChange;

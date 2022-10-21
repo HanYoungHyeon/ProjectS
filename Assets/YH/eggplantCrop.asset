@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b3f26c14f5ec34598e5c3fe47f0bd7, type: 3}
+  m_Name: eggplantCrop
+  m_EditorClassIdentifier: 
+  _itemName: eggplantCrop
+  _itemSprite: {fileID: 0}
+  _itemMesh: {fileID: 4300020, guid: fbd33e75d8d4bf9479c9cb59e83a9e37, type: 3}
+  _itemMaterial: {fileID: 2100000, guid: 84069b5b67b23e24b85eac888c3f5bc2, type: 2}
+  _discardTime: 0
+  plant: {fileID: 11400000, guid: 1e0cf7b9f0284be4eb77ab5c6140b054, type: 2}

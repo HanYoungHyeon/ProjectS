@@ -7,50 +7,111 @@ public class ObjectPoolCall : MonoBehaviour
     [SerializeField]
     GameObject slime;
     [SerializeField]
-    GameObject plant;
+    GameObject carrot;
+    [SerializeField]
+    GameObject corn;
+    [SerializeField]
+    GameObject eggplant;
+    [SerializeField]
+    GameObject pumpkin;
+    [SerializeField]
+    GameObject tomato;
     ObjectPool objectPool;
-    ObjectPool plantPool;
+    ObjectPool carrotPool;
+    ObjectPool cornPool;
+    ObjectPool eggplantPool;
+    ObjectPool pumpkinPool;
+    ObjectPool tomatoPool;
+
     [SerializeField]
     List<GameObject> slimes = new List<GameObject>();
     [SerializeField]
     List<GameObject> plants = new List<GameObject>();
     public Vector3 spawnPosition;
+    public Vector3 carrotPosition;
+    public Vector3 cornPosition;
+    public Vector3 eggplantPosition;
+    public Vector3 pumpkinPosition;
+    public Vector3 tomatoPosition;
     [SerializeField]
-    int maxAmount;
-    public int curAmount;
+    int maxSlimeAmount;
+    public int curSlimeAmount;
+    [SerializeField]
+    int maxPlantAmount;
+    public int curPlantAmount;
 
     private void Awake()
     {
-        curAmount = 0;
-        maxAmount = 50;
-        objectPool = ObjectPoolManager.Instance.PoolRequest(slime, maxAmount, 3);
-        plantPool = ObjectPoolManager.Instance.PoolRequest(plant, maxAmount, 3);
+        curSlimeAmount = 0;
+        maxSlimeAmount = 15;
+        curPlantAmount = 0;
+        maxPlantAmount = 3;
+        objectPool = ObjectPoolManager.Instance.PoolRequest(slime, maxSlimeAmount, 0);
+        carrotPool = ObjectPoolManager.Instance.PoolRequest(carrot, maxPlantAmount, 0);
+        cornPool = ObjectPoolManager.Instance.PoolRequest(corn, maxPlantAmount, 0);
+        eggplantPool = ObjectPoolManager.Instance.PoolRequest(eggplant, maxPlantAmount, 0);
+        pumpkinPool = ObjectPoolManager.Instance.PoolRequest(pumpkin, maxPlantAmount, 0);
+        tomatoPool = ObjectPoolManager.Instance.PoolRequest(tomato, maxPlantAmount, 0);
     }
     private void Start()
     {
         StartCoroutine(CheckSlime());
-        StartCoroutine(CheckPlant());
     }
 
     IEnumerator CheckSlime()
     {
-
           while (true)
          {
-              if (curAmount < maxAmount)
-              {
-                  yield return new WaitForSeconds(1f);
-                  slimes.Add(objectPool.Call(spawnPosition, Quaternion.identity).gameObject);
-                  curAmount++;
-              }
-          }
-      }
-    IEnumerator CheckPlant()
-    {
-        while (true)
-        {
+            if (curSlimeAmount < maxSlimeAmount)
+            {
                 yield return new WaitForSeconds(1f);
-                plants.Add(plantPool.Call(spawnPosition,Quaternion.Normalize(Quaternion.identity)).gameObject);
+                slimes.Add(objectPool.Call(spawnPosition, Quaternion.identity).gameObject);
+                curSlimeAmount++;
+            }
+            else if (curSlimeAmount > maxSlimeAmount)
+            {
+                foreach (var go in slimes)
+                {
+                    Debug.Log("제대로 돌아가나?");
+                    objectPool.Return(go);
+                    BC.SceneSlime target = go.GetComponent<BC.SceneSlime>();
+                    Temp(target);
+                }
+            }
+
+            if (curPlantAmount < maxPlantAmount)
+            {
+                //yield return new WaitForSeconds(60f);
+                plants.Add(carrotPool.Call(carrotPosition, Quaternion.identity).gameObject);
+                plants.Add(cornPool.Call(cornPosition, Quaternion.identity).gameObject);
+                plants.Add(eggplantPool.Call(eggplantPosition, Quaternion.identity).gameObject);
+                plants.Add(pumpkinPool.Call(pumpkinPosition, Quaternion.identity).gameObject);
+                plants.Add(tomatoPool.Call(tomatoPosition, Quaternion.identity).gameObject);
+                curPlantAmount += 5;
+            }
+            else if (curPlantAmount > maxPlantAmount)
+            {
+                foreach (var go in plants)
+                {
+                    carrotPool.Return(go);
+                }
+            }
+            else
+                yield return null;
+            
         }
+      }
+
+
+    public void WhenDieSlime()
+    {
+        curSlimeAmount--;
+    }
+    private void Temp(BC.SceneSlime sceneSlime)
+    {
+        Debug.Log("실행 되나?");
+        sceneSlime.returnAcition -= WhenDieSlime;
+        sceneSlime.returnAcition += WhenDieSlime;
+
     }
 }

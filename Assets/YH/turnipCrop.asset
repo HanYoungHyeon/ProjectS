@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b3f26c14f5ec34598e5c3fe47f0bd7, type: 3}
+  m_Name: turnipCrop
+  m_EditorClassIdentifier: 
+  _itemName: turnipCrop
+  _itemSprite: {fileID: 0}
+  _itemMesh: {fileID: 4300018, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
+  _itemMaterial: {fileID: 2100000, guid: 5c447342ee33d5e41b58c66831ddd16d, type: 2}
+  _discardTime: 0
+  plant: {fileID: 11400000, guid: 0a0e92490863ea643bb06b46b76c424b, type: 2}
