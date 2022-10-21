@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class LimTest : MonoBehaviour
 {
-    public Rigidbody rb;
+    private Camera playerCamera;
+    private LayerMask structurLayer;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        CheckStructur();
+    }
+    public void CheckStructur()
+    {
+        RaycastHit hit;
+        Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,out hit,10f,structurLayer);
+        SlimeFarm target = hit.transform.GetComponent<SlimeFarm>();
+        if(target != null)
         {
-            rb.AddForce(transform.forward * 0.5f, ForceMode.Impulse);
+            target.UpgradeUI.SetActive(true);
         }
     }
 }
