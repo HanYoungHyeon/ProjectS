@@ -6,54 +6,35 @@ using UnityEngine.UI;
 
 public class MachineUIController : MonoBehaviour
 {
+    public Farm farm;
     [SerializeField]
-    private Farm farm;
-    [SerializeField]
-    private List<GameObject> upgradeList;
-    [SerializeField]
-    private Image upgradeSprite;
-    [SerializeField]
-    private TextMeshProUGUI upgradeName;
-    [SerializeField]
-    private TextMeshProUGUI upgradeInfo;
-    [SerializeField]
-    private TextMeshProUGUI upgradePrice;
+    private GameObject machineUI;
+    private Farm machineFarm;
 
-    
-
-    //UI창 활성화될 때마다 남은 UpgradeList만큼 활성화
-    public void Awake()
-    { 
-        for(int i = 0; i < farm.Upgrades.Count; i++)
-        {
-            TextMeshProUGUI tempUGUI = upgradeList[i].GetComponentInChildren<TextMeshProUGUI>();
-            UIEventFunc tempUpgrade = upgradeList[i].GetComponentInChildren<UIEventFunc>();
-            upgradeList[i].SetActive(true);
-            tempUGUI.text = farm.Upgrades[i].UpgradeName;
-            tempUpgrade.upgrade = farm.Upgrades[i];
-        }
-    }
-
-    public void OnDisable()
+    private void Awake()
     {
-        //list 비우기
-        Debug.Log("g");
-        upgradeList.RemoveRange(0, farm.Upgrades.Count);
+        machineFarm = machineUI.GetComponent<MachineUI>().farm;
     }
 
     private void Update()
     {
-       if(Input.GetKeyDown(KeyCode.O))
+        if(Input.GetKeyDown(KeyCode.O))
         {
-            upgradeList[0].SetActive(false);
-            upgradeList.RemoveAt(0);
+            OnUI();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            OffUI();
         }
     }
 
-    public void ShowInfo(Upgrade upgrade)
+    //상호작용했을 때
+    public void OnUI()
     {
-        upgradeName.text = upgrade.UpgradeName;
-        upgradePrice.text = upgrade.RequireCoin.ToString();
-        upgradeInfo.text = upgrade.UpgradeInfo;
+        machineUI.SetActive(true);
+    }
+    public void OffUI()
+    {
+        machineUI.SetActive(false);
     }
 }

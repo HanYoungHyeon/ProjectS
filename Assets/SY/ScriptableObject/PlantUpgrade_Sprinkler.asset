@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlantUpgrade_Sprinkler
   m_EditorClassIdentifier: 
   upgradeName: sprinkler
-  upgradeInfo: "\uBB3C\uC744 \uC790\uB3D9\uC73C\uB85C \uBFCC\uB824\uC90D\uB2C8\uB2E4."
+  upgradeInfo: Auto Water
   upgradeImage: {fileID: 0}
   requireCoin: 500
