@@ -8,6 +8,7 @@ public class UIEventFunc : MonoBehaviour
 {
     public UnityEvent OnClick;
     public UnityEvent OffClick;
+    public Upgrade upgrade;
 
     private bool isClick = false;
 
@@ -28,7 +29,7 @@ public class UIEventFunc : MonoBehaviour
     }
     public void ShowInfo()
     {
-        
+        UIManager.Instance.MachineUIController.ShowInfo(upgrade);
     }
     public void BuyUpgrade()
     {
@@ -36,6 +37,7 @@ public class UIEventFunc : MonoBehaviour
     }
     public void ChangeBool(bool value)
     {
+        Debug.Log("버튼누름");
         isClick = value;
     }
 }
