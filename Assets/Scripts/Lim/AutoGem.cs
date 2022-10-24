@@ -40,7 +40,7 @@ public class AutoGem : MonoBehaviour
     }
     private void LateUpdate()
     {
-        
+        UpdateSlot();
     }
 
     private void HarvestGem()
@@ -108,7 +108,14 @@ public class AutoGem : MonoBehaviour
     {
         for (int i = 0; i < showSlotInfos.Length; i++)
         {
-            showSlotInfos[i].ChangeImage(gems[i].gem, gems[i].count);
+            if(i > gems.Count-1)
+            {
+                showSlotInfos[i].ChangeImage(null, 0);
+            }
+            else
+            {
+                showSlotInfos[i].ChangeImage(gems[i].gem, gems[i].count);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)

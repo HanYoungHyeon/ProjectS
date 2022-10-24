@@ -17,7 +17,7 @@ public class SlimeFarmMachine : MonoBehaviour
 
     public void HighWallUpgrade()
     {
-        upgradeObject[0].transform.position = upgradeObject[0].transform.position+ Vector3.up*2;
+        upgradeObject[0].transform.position = upgradeObject[0].transform.position + Vector3.up*2;
     }
     public void AirNetUpgrade()
     {

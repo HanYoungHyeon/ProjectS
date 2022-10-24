@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class ShowSlotInfo : MonoBehaviour
 {
+    [SerializeField]
     private TextMeshProUGUI countText;
+    [SerializeField]
     private Image itemImage;
+    [SerializeField]
     private Sprite emptyImage;
 
     public void ChangeImage(Item item, int value)
