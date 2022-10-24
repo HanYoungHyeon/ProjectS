@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b8652eabf609347853a9f0a5bc2ba9, type: 3}
   m_Name: PlantUpgrade_Sprinkler
   m_EditorClassIdentifier: 
-  upgradeName: sprinkler
+  upgradeName: Sprinkler
   upgradeInfo: Auto Water
   upgradeImage: {fileID: 0}
   requireCoin: 500

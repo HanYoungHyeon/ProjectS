@@ -13,8 +13,9 @@ public class MachineController : MonoBehaviour
     private GameObject machineUI;
     public List<GameObject> upgradeList = new List<GameObject>();
     public List<bool> isUpgrades;
+    private bool isSelectedFarm = false;
     [SerializeField]
-    private List<Farm> farmList = new List<Farm>();
+    private List<GameObject> farmListUI = new List<GameObject>();
     private GameObject selectFarm;
     public Upgrade selectUpgrade;
 
@@ -24,27 +25,32 @@ public class MachineController : MonoBehaviour
         {
             isUpgrades.Add(false);
         }
+        selectFarm = farmListUI[0];
     }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.O))
         {
-            OnUI();
+            OnUI(selectFarm);
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            OffUI();
+            OffUI(selectFarm);
+            if(isSelectedFarm == true)
+            {
+                UIManager.Instance.MachineUI.CountUpgradeList();
+            }
         }
     }
 
     //상호작용했을 때
-    public void OnUI()
+    public void OnUI(GameObject selectFarm)
     {
-        machineUI.SetActive(true);
+        selectFarm.SetActive(true);
     }
-    public void OffUI()
+    public void OffUI(GameObject selectFarm)
     {
-        machineUI.SetActive(false);
+        selectFarm.SetActive(false);
     }
 
     public void BuyUpgrade()
@@ -64,7 +70,15 @@ public class MachineController : MonoBehaviour
             farmMachine.startFunction(selectUpgrade.UpgradeName);
             UIManager.Instance.MachineUI.CountUpgradeList();
             Debug.Log("업그레이드 성공");
-        }
+        }  
+    }
 
+    public void SelectFarm()
+    {
+        farmListUI[0].SetActive(false);
+        farmListUI[1].SetActive(true);
+        UIManager.Instance.MachineUI.CountUpgradeList();
+        selectFarm = farmListUI[1];
+        isSelectedFarm = true;
     }
 }

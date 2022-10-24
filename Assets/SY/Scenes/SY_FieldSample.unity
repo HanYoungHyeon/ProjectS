@@ -268,6 +268,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 340529101}
     m_Modifications:
+    - target: {fileID: 2320657988443683927, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
+      propertyPath: farm
+      value: 
+      objectReference: {fileID: 11400000, guid: b9e8f9629135f4915873f72b03658b4f, type: 2}
+    - target: {fileID: 2320657988443683927, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectFarmType
+      objectReference: {fileID: 0}
+    - target: {fileID: 2320657988988496177, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
+      propertyPath: farm
+      value: 
+      objectReference: {fileID: 11400000, guid: 48e2d5668a6f54d989b664220c11b324, type: 2}
+    - target: {fileID: 2320657988988496177, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectFarmType
+      objectReference: {fileID: 0}
     - target: {fileID: 2320657989205982986, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
       propertyPath: m_Name
       value: SelectFarmTypeUI
@@ -683,6 +699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3360a8141591dc944be5b42cfdeeda23, type: 3}
+--- !u!1 &707996274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2320657989205982986, guid: 57a5a7bf4db9d43a7bfc5a061a5f582c, type: 3}
+  m_PrefabInstance: {fileID: 233958667}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &748753195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,9 +1353,9 @@ MonoBehaviour:
   - {fileID: 3634227306323200172}
   - {fileID: 3634227306643837030}
   isUpgrades: 
-  farmList:
-  - {fileID: 11400000, guid: b9e8f9629135f4915873f72b03658b4f, type: 2}
-  - {fileID: 11400000, guid: 48e2d5668a6f54d989b664220c11b324, type: 2}
+  farmListUI:
+  - {fileID: 707996274}
+  - {fileID: 1703348545}
   selectUpgrade: {fileID: 0}
 --- !u!1 &1356726722
 GameObject:

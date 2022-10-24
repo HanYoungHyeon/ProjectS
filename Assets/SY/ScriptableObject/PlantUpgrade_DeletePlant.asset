@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b8652eabf609347853a9f0a5bc2ba9, type: 3}
   m_Name: PlantUpgrade_DeletePlant
   m_EditorClassIdentifier: 
-  upgradeName: DeletePlant
+  upgradeName: DeleteCrop
   upgradeInfo: Delete all Plant  in Farm
   upgradeImage: {fileID: 0}
   requireCoin: 10
