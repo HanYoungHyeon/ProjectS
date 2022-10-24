@@ -35,7 +35,7 @@ public class SlimeFarmMachine : MonoBehaviour
     {
         upgradeObject[4].SetActive(true);
     }
-    public void Func(string name)
+    public void StartFunction(string name)
     {
         Invoke(name, 0.1f);
     }
