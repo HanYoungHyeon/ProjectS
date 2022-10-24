@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BC
 {
-    public class Player : MonoBehaviour
+    public class Player : OVRPlayerController
     {
         [SerializeField]
         GameObject movePointObject;
@@ -16,7 +16,9 @@ namespace BC
         [SerializeField]
         float uiInteractionDistance;
         [SerializeField]
-        Camera cameraMain;
+        Transform leftHand;
+        [SerializeField]
+        CharacterController objectCharacterController;
 
         RaycastHit movementHit;
         Ray moveRay;
@@ -31,7 +33,6 @@ namespace BC
             lineRenderer = GetComponent<LineRenderer>();
         }
 
-
         private void Update()
         {
             //interactionRay = cameraMain.ScreenPointToRay(transform.forward*5);
@@ -39,13 +40,15 @@ namespace BC
             if (Input.GetMouseButton(1))
             {
                 Time.timeScale = 0.1f;
-                moveRay = cameraMain.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(moveRay, out movementHit, Mathf.Infinity, groundMask))
+                Debug.DrawRay(leftHand.position, leftHand.forward * 10);
+                if(Physics.Raycast(leftHand.position, leftHand.forward, out movementHit, Mathf.Infinity, groundMask))
+                //if (Physics.Raycast(moveRay, out movementHit, Mathf.Infinity, groundMask))
                 {
-                    linePositions[0] = transform.position;
+                    linePositions[0] = transform.position + new Vector3(0,+0.75f,0);
                     movePointObject.SetActive(true);
-                    movePointObject.transform.position = movementHit.point;
-                    linePositions[1] = movementHit.point;
+                    Vector3 dir = movementHit.point - movePointObject.transform.position;
+                    objectCharacterController.Move(dir);
+                    linePositions[1] = movePointObject.transform.position;
                     lineRenderer.SetPositions(linePositions);
                 }
             }
@@ -57,6 +60,10 @@ namespace BC
             }
         }
 
+   
+
     }
+
+
 
 }
