@@ -35,7 +35,6 @@ namespace BC
         private Collider[] vacuumColliders = new Collider[1];
         private float idleCount;
         private bool isFlying;
-        private bool isReady;
         private float hungry;
         private UnityAction vaccumCheck;
         public UnityAction returnAcition;
@@ -58,7 +57,6 @@ namespace BC
             hungry = 0;
             agent.speed = curSlime.speed;
             SlimeMovement();
-            isReady = true;
         }
         public void FaceSet(Texture tex)
         {
@@ -145,7 +143,6 @@ namespace BC
 
         public void ItemReturn()
         {
-            isReady = false;
             returnAcition?.Invoke();
             home.Return(this.gameObject);
         }
