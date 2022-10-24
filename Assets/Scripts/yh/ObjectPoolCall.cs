@@ -65,18 +65,21 @@ public class ObjectPoolCall : MonoBehaviour
             if (curSlimeAmount < maxSlimeAmount)
             {
                 yield return new WaitForSeconds(1f);
-                slimes.Add(objectPool.Call(spawnPosition, Quaternion.identity).gameObject);
+                objectPool.Call(spawnPosition, Quaternion.identity).TryGetComponent(out BC.SceneSlime callSlime);
+                callSlime.returnAcition -= WhenDieSlime;
+                callSlime.returnAcition += WhenDieSlime;
+                slimes.Add(callSlime.gameObject);
                 curSlimeAmount++;
             }
             else if (curSlimeAmount > maxSlimeAmount)
             {
                 foreach (var go in slimes)
                 {
+                    go.transform.TryGetComponent(out BC.SceneSlime returnSlime);
+                    returnSlime.ItemReturn();
                     Debug.Log("제대로 돌아가나?");
-                    objectPool.Return(go);
-                    BC.SceneSlime target = go.GetComponent<BC.SceneSlime>();
-                    Temp(target);
                 }
+
             }
 
             if (curPlantAmount < maxPlantAmount)
@@ -107,11 +110,11 @@ public class ObjectPoolCall : MonoBehaviour
     {
         curSlimeAmount--;
     }
-    private void Temp(BC.SceneSlime sceneSlime)
+    /*private void Temp(BC.SceneSlime sceneSlime)
     {
         Debug.Log("실행 되나?");
         sceneSlime.returnAcition -= WhenDieSlime;
         sceneSlime.returnAcition += WhenDieSlime;
 
-    }
+    }*/
 }
