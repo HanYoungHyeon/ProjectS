@@ -18,6 +18,8 @@ public class AutoGem : MonoBehaviour
     [SerializeField]
     private Transform centerTransform;
     [SerializeField]
+    private Transform interactionTransform;
+    [SerializeField]
     private Vector3 boxSize;
     private float coolTime = 5f;
     private int slotCount = 2;
@@ -128,7 +130,7 @@ public class AutoGem : MonoBehaviour
         while(totalCount>0)
         {
             int slotNum = UnityEngine.Random.Range(0, gems.Count);
-            ItemManager.Instance.CreateSceneItem(gems[slotNum].gem, transform.position);
+            ItemManager.Instance.CreateSceneItem(gems[slotNum].gem, interactionTransform.position);
             gems[slotNum].count--;
             totalCount--;
             if (gems[slotNum].count <=0)

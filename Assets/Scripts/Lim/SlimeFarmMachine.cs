@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SlimeFarm : MonoBehaviour
+public class SlimeFarmMachine : MonoBehaviour
 {
     [SerializeField]
     private Farm farm;

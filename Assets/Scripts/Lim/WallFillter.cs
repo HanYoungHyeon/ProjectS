@@ -9,11 +9,11 @@ public class WallFillter : MonoBehaviour
 {
     [SerializeField]
     private LayerMask blockLayer;
-    private SlimeFarm slimeFarm;
+    private SlimeFarmMachine slimeFarm;
 
     private void OnEnable()
     {
-        slimeFarm = GetComponentInParent<SlimeFarm>();
+        slimeFarm = GetComponentInParent<SlimeFarmMachine>();
     }
 
     private void OnTriggerEnter(Collider other)

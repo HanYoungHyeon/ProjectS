@@ -14,7 +14,7 @@ public class AutoFeed : MonoBehaviour
     [SerializeField]
     private Transform cropsInputTransform;
 
-    private SlimeFarm slimeFarm;
+    private SlimeFarmMachine slimeFarm;
     private Crop crop;
     private int count = 0;
     private float coolTime = 5f;
@@ -22,7 +22,7 @@ public class AutoFeed : MonoBehaviour
 
     private void Start()
     {
-        slimeFarm = GetComponentInParent<SlimeFarm>();
+        slimeFarm = GetComponentInParent<SlimeFarmMachine>();
         StartCoroutine(CheckCoolTime(coolTime));
     }
 

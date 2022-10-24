@@ -7,10 +7,33 @@ public class CameraTest : MonoBehaviour
 {
     public LayerMask mask;
     UIEventFunc target;
+
+    Scrollbar targetSlider;
     public static int money = 100000;
     // Update is called once per frame
     void Update()
     {
+        RaycastHit hitSlider;
+
+        Debug.DrawRay(transform.position, transform.forward * 1000);
+        if(Physics.Raycast(transform.position,transform.forward, out hitSlider,Mathf.Infinity))
+        {
+            
+            targetSlider = hitSlider.transform.GetComponent<Scrollbar>();
+        }
+        if(targetSlider != null)
+        {
+            if(Input.GetKey(KeyCode.O))
+            {
+                targetSlider.value += 0.1f;
+            }
+            if(Input.GetKey(KeyCode.L))
+            {
+                targetSlider.value -= 0.1f;
+            }
+        }
+
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += transform.up*0.05f;
@@ -27,7 +50,7 @@ public class CameraTest : MonoBehaviour
         {
             transform.position += transform.right * 0.05f;
         }
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity,mask);
