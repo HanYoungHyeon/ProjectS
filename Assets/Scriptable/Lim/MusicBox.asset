@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b8652eabf609347853a9f0a5bc2ba9, type: 3}
-  m_Name: AutoGem
+  m_Name: MusicBox
   m_EditorClassIdentifier: 
-  upgradeName: AutoGem
-  upgradeInfo: Active AutoGem
+  upgradeName: Music Box
+  upgradeInfo: Active Music Box
   upgradeImage: {fileID: 0}
   requireCoin: 10

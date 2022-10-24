@@ -22,7 +22,7 @@ public class LimTest : MonoBehaviour
         SlimeFarm target = hit.transform.GetComponent<SlimeFarm>();
         if(target != null)
         {
-            target.UpgradeUI.SetActive(true);
+            //target.UpgradeUI.SetActive(true);
         }
     }
 }

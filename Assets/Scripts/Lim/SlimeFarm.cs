@@ -1,42 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SlimeFarm : MonoBehaviour
 {
-    private bool highWallUpgrade = false;
-    private bool airNetUpgrade = false;
-    private bool musicBoxUpgrade = false;
-    private bool autoGemUpgrade = false;
-    private bool autoFeedUpgrade = false;
+    [SerializeField]
+    private Farm farm;
+    [SerializeField]
+    private List<GameObject> upgradeObject;
     [SerializeField]
     private GameObject insideObject;
     public GameObject InsideObject { get { return insideObject; } set { insideObject = value; } }
-    [SerializeField]
-    private GameObject upgradeUI;
-    public GameObject UpgradeUI { get { return upgradeUI; } set { upgradeUI = value; } }
 
     public LayerMask playerLayer;
 
-    private void Start()
+    public void HighWallUpgrade()
     {
-
-        //슬라임 우리로 변경함수 추가
+        upgradeObject[0].transform.position = upgradeObject[0].transform.position+ Vector3.up*2;
     }
-
-    private void Update()
+    public void AirNetUpgrade()
     {
-        Collider[] target = Physics.OverlapSphere(transform.position, 20f, playerLayer);
-        
-        if (target.Length>0)
-        {
-            upgradeUI.SetActive(true);
-        }
-        else
-        {
-            upgradeUI.SetActive(false);
-        }
-        //업그레이드 확인 함수 추가
+        upgradeObject[1].SetActive(true);
     }
-    //업그레이드 퀘스트 다이얼로그 관련 추가
+    public void AutoGemUpgrade()
+    {
+        upgradeObject[2].SetActive(true);
+    }
+    public void AutoFeedUpgrade()
+    {
+        upgradeObject[3].SetActive(true);
+    }
+    public void MusicBoxUpgrade()
+    {
+        upgradeObject[4].SetActive(true);
+    }
+    public void Func(string name)
+    {
+        Invoke(name, 0.1f);
+    }
 }
