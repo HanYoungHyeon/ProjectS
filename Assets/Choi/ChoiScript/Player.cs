@@ -38,7 +38,7 @@ namespace BC
             //interactionRay = cameraMain.ScreenPointToRay(transform.forward*5);
             //Physics.Raycast(interactionRay, out uiHit, uiInteractionDistance, uiMask);
             Debug.DrawRay(leftHand.position, leftHand.forward * 10);
-            if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))
+            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
             {
                 Time.timeScale = 0.1f;
                 if(Physics.Raycast(leftHand.position, leftHand.forward, out movementHit, Mathf.Infinity, groundMask))
@@ -52,7 +52,7 @@ namespace BC
                     lineRenderer.SetPositions(linePositions);
                 }
             }
-            if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger))
+            if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
             {
                 Time.timeScale = 1f;
                 transform.position = movePointObject.transform.position + new Vector3(0, 0.75f, 0);
