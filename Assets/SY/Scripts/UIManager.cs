@@ -8,7 +8,7 @@ public class UIManager : Singleton<UIManager>
     private MachineUI machineUI;
     public MachineUI MachineUI { get { return machineUI; } set { machineUI = value; } }
     [SerializeField]
-    private MachineUIController machineUIController;
-    public MachineUIController MachineUIController { get { return machineUIController; } set { machineUIController = value; } }
+    private MachineController machineController;
+    public MachineController MachineController { get { return machineController; } set { machineController = value; } }
 
 }

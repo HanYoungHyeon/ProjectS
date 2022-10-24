@@ -261,6 +261,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &310320459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4539074635770216533, guid: 59eb649ae2ee44a0c8caa703d53abf0a, type: 3}
+  m_PrefabInstance: {fileID: 905599763080895958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &369189137
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machineUI: {fileID: 2003050645}
-  machineUIController: {fileID: 1275042939}
+  machineController: {fileID: 1275042939}
 --- !u!4 &369189139
 Transform:
   m_ObjectHideFlags: 0
@@ -798,6 +803,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &845660881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4539074636259757103, guid: 59eb649ae2ee44a0c8caa703d53abf0a, type: 3}
+  m_PrefabInstance: {fileID: 905599763080895958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &879145783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1089,7 @@ GameObject:
   - component: {fileID: 1275042938}
   - component: {fileID: 1275042939}
   m_Layer: 0
-  m_Name: MachineUIController
+  m_Name: MachineController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1124,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   farm: {fileID: 11400000, guid: b9e8f9629135f4915873f72b03658b4f, type: 2}
+  farmMachine: {fileID: 748753196}
   machineUI: {fileID: 2003050643}
+  upgradeList:
+  - {fileID: 3634227305558168945}
+  - {fileID: 3634227306371000013}
+  - {fileID: 3634227304553185722}
+  - {fileID: 3634227305545130355}
+  - {fileID: 3634227306323200172}
+  - {fileID: 3634227306643837030}
+  isUpgrades: 
+  selectUpgrade: {fileID: 0}
 --- !u!1 &1356726722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,17 +1612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cfe0c6df8c54a4bad55dc5ad36b140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeList:
-  - {fileID: 3634227305558168945}
-  - {fileID: 3634227306371000013}
-  - {fileID: 3634227304553185722}
-  - {fileID: 3634227305545130355}
-  - {fileID: 3634227306323200172}
-  - {fileID: 3634227306643837030}
   upgradeSprite: {fileID: 3634227305716501590}
   upgradeName: {fileID: 3634227304604889393}
   upgradeInfo: {fileID: 3634227304899537053}
   upgradePrice: {fileID: 3634227305918564375}
+  upgradeFail: {fileID: 310320459}
+  upgradeSuccess: {fileID: 845660881}
   farm: {fileID: 0}
 --- !u!1 &2020540840
 GameObject:

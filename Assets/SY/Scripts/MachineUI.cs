@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class MachineUI : MonoBehaviour
 {
-
-    [SerializeField]
-    private List<GameObject> upgradeList = new List<GameObject>();
     [SerializeField]
     private Image upgradeSprite;
     [SerializeField]
@@ -17,47 +14,54 @@ public class MachineUI : MonoBehaviour
     private TextMeshProUGUI upgradeInfo;
     [SerializeField]
     private TextMeshProUGUI upgradePrice;
+    public GameObject upgradeFail;
+    public GameObject upgradeSuccess;
+    private MachineController machineUIController;
     public Farm farm;
 
+    private void Awake()
+    {
+        machineUIController = UIManager.Instance.MachineController;
+        farm = UIManager.Instance.MachineController.farm;
+       
+    }
 
 
     //UI창 활성화될 때마다 남은 UpgradeList만큼 활성화
-    public void Awake()
+    public void OnEnable()
     {
-        farm = UIManager.Instance.MachineUIController.farm;
-        Debug.Log(farm.Upgrades.Count);
-        
+       
+        CountUpgradeList();
     }
 
-    private void OnEnable()
-    {
-        for (int i = 0; i < farm.Upgrades.Count; i++)
-        {
-            TextMeshProUGUI upgradeUGUI = upgradeList[i].GetComponentInChildren<TextMeshProUGUI>();
-            UIEventFunc upgrade = upgradeList[i].GetComponentInChildren<UIEventFunc>();
-            upgradeList[i].SetActive(true);
-            upgradeUGUI.text = farm.Upgrades[i].UpgradeName;
-            upgrade.upgrade = farm.Upgrades[i];
-        }
-    }
-
-    public void OnDisable()
-    {
-        //list 비우기
-        //upgradeList.RemoveRange(0, farm.Upgrades.Count);
-    }
 
     public void ShowInfo(Upgrade upgrade)
     {
         upgradeName.text = upgrade.UpgradeName;
         upgradePrice.text = upgrade.RequireCoin + "";
         upgradeInfo.text = upgrade.UpgradeInfo;
+        machineUIController.selectUpgrade = upgrade;
     }
 
-    public void BuyUpgrade()
+    
+    public void CountUpgradeList()
     {
-        //캐릭터 소유 금액 -= 업그레이드 필요금액
-        CameraTest.money -= int.Parse(upgradePrice.text);
-        Debug.Log(CameraTest.money);
+        for (int i = 0; i < farm.Upgrades.Count; i++)
+        {
+            machineUIController.upgradeList[i].SetActive(false);
+        }
+        for (int i = 0; i < farm.Upgrades.Count; i++)
+        {
+            if (UIManager.Instance.MachineController.isUpgrades[i] == false)
+            {
+                TextMeshProUGUI upgradeUGUI = machineUIController.upgradeList[i].GetComponentInChildren<TextMeshProUGUI>();
+                UIEventFunc upgrade = machineUIController.upgradeList[i].GetComponentInChildren<UIEventFunc>();
+                machineUIController.upgradeList[i].SetActive(true);
+                upgradeUGUI.text = farm.Upgrades[i].UpgradeName;
+                upgrade.upgrade = farm.Upgrades[i];
+            }
+           
+        }
     }
+
 }

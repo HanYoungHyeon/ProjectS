@@ -34,8 +34,9 @@ public class UIEventFunc : MonoBehaviour
 
     public void BuyUpgrade()
     {
-        UIManager.Instance.MachineUI.BuyUpgrade();
+        UIManager.Instance.MachineController.BuyUpgrade();
     }
+
     public void ChangeBool(bool value)
     {
         isClick = value;
