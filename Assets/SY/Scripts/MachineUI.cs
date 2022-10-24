@@ -30,7 +30,6 @@ public class MachineUI : MonoBehaviour
     //UI창 활성화될 때마다 남은 UpgradeList만큼 활성화
     public void OnEnable()
     {
-       
         CountUpgradeList();
     }
 

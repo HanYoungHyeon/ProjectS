@@ -27,7 +27,7 @@ public class CameraTest : MonoBehaviour
         {
             transform.position += transform.right * 0.05f;
         }
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity,mask);
