@@ -15,5 +15,14 @@ public class GameManager : Singleton<GameManager>
         detectionGems.Add(gem);
     }
 
+    public void TakeItem(Item item)
+    {
+        Gem tempGem = item as Gem;
+        if(tempGem!=null)
+        {
+            TakeGem(tempGem);
+        }
+    }
+
 
 }

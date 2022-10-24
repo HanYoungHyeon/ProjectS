@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class TestPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //에헤 아무것도 없다네~
 }

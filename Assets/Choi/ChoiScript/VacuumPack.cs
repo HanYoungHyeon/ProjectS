@@ -28,11 +28,13 @@ namespace BC
         private void Update()
         {
             ChangeMode();
-            if(Input.GetKeyDown(KeyCode.K))
+            if(OVRInput.GetDown(OVRInput.Button.Four))
+            //if(Input.GetKeyDown(KeyCode.K))
             {
                 SlotChange();
             }
-            if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyDown(KeyCode.L))
+            if(OVRInput.GetDown(OVRInput.Button.One))
+            //if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyDown(KeyCode.L))
             {
                 if (mode == MODE.release)
                 {
@@ -47,7 +49,8 @@ namespace BC
 
         private void ChangeMode()
         {
-            if(Input.GetKeyDown(KeyCode.T))
+            if(OVRInput.GetDown(OVRInput.Button.Two))
+            //if(Input.GetKeyDown(KeyCode.T))
             {
                 if(mode == MODE.release)
                 {
@@ -115,11 +118,12 @@ namespace BC
                     foreach (var slot in slots)
                     {
                         if (slot.curSlotItem == null)
-                        {
+                        {                       
                             slot.AddItem(curItem);
                             slotRelease[slot] = ReleaseCheck(curItem);
                             slot.ItemCount++;
                             target.ItemReturn();
+                            GameManager.Instance.TakeItem(curItem);
                             break;
                         }
                     }
