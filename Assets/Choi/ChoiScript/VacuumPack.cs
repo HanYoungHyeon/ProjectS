@@ -21,12 +21,11 @@ namespace BC
         private Collider[] vacuumPackColliders;
         [SerializeField]
         private Transform releasPosition;
-        public enum TYPE { slime, item }
-        private enum MODE { absorption, release }
-        public TYPE type = TYPE.slime;
-        private MODE mode = MODE.absorption;
+        //public enum TYPE { slime, item }
+        //public TYPE type = TYPE.slime;
+        public bool isSlime;
+        private bool isRelease;
         private Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
-
 
         private void Awake()
         {
@@ -42,36 +41,22 @@ namespace BC
                 SlotChange();
             }
             //if(OVRInput.GetDown(OVRInput.Button.One))
-            if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyUp(KeyCode.L))
             {
-
-                if (mode == MODE.absorption)
-                {
-                    ItemAbsorption();
-                }
+                if(!isRelease) ItemAbsorption();
             }
-            if(Input.GetKeyDown(KeyCode.L))
+            if(Input.GetKeyDown(KeyCode.L)&&isRelease)
             {
-                if (mode == MODE.release)
-                {
-                    ItemRelease();
-                }
-            }
+                ItemRelease();
+            }          
         }
 
         private void ChangeMode()
         {
             //if(OVRInput.GetDown(OVRInput.Button.Two))
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                if(mode == MODE.release)
-                {
-                    mode = MODE.absorption;
-                }
-                else if( mode == MODE.absorption)
-                {
-                    mode = MODE.release;
-                }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                isRelease = !isRelease;
             }
         }
 
@@ -87,23 +72,16 @@ namespace BC
 
         private void ItemAbsorption()
         {
-            foreach(var col in vacuumPackColliders)
+            particle.SetActive(!particle.activeSelf);
+            foreach (var col in vacuumPackColliders)
             {
                 col.enabled = !col.enabled;
             }
-            if(particle.activeSelf)
-            {
-                particle.SetActive(false);
-                return;
-            }
-            particle.SetActive(true);
-
-
         }
 
         private void ItemRelease()
         {
-            if (curSlot.ItemCount <= 0) return;
+            if (curSlot.ItemCount == 0) return;
             slotRelease[curSlot]?.Invoke();
             curSlot.ItemCount--;
         }

@@ -10,6 +10,7 @@ public class SceneItem : MonoBehaviour,IInteraction,IPoolingable,IItemable
     protected Item curItem;
     public ObjectPool home { get; set; }
     public Rigidbody rigi { get; set; }
+    public Item.ItemType type { get { return curItem.type; } }
 
     protected void Awake()
     {

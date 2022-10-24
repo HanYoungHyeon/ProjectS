@@ -20,6 +20,7 @@ namespace BC
         public NavMeshAgent Agent { get; private set; }
         public Rigidbody rigi { get; set; }
         public ObjectPool home { get; set; }
+        public Item.ItemType type { get { return curSlime.type; }}
         [SerializeField]
         Face slimeFace;
         [SerializeField]
@@ -38,6 +39,7 @@ namespace BC
         private float hungry;
         private UnityAction vaccumCheck;
         public UnityAction returnAcition;
+        private NavMeshHit navHit;
 
 
         private void Awake()
@@ -64,7 +66,6 @@ namespace BC
         }
         private void FixedUpdate()
         {
-         
             vaccumCheck?.Invoke();
             if (isFlying) return;
             animator.SetFloat(Parameter.speed, agent.velocity.magnitude);
@@ -155,6 +156,7 @@ namespace BC
             isFlying = true;
             rigi.isKinematic = false;
             animator.applyRootMotion = false;
+            agent.enabled = false;
             vaccumCheck = VacuumCheck;
         }
         private void VacuumCheck()
@@ -162,9 +164,10 @@ namespace BC
             vacuumColliders[0] = null;
             Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, 0.27f, 0), 0.35f, vacuumColliders, vacuumMask, QueryTriggerInteraction.Collide);
             if (vacuumColliders[0] != null) return;
-            animator.applyRootMotion = true;
-            if (!agent.isOnNavMesh) return;
+            if (!NavMesh.SamplePosition(transform.position,out navHit,0.3f,NavMesh.AllAreas)) return;
             rigi.isKinematic = true;
+            agent.enabled = true;
+            animator.applyRootMotion = true;
             isFlying = false;
             vaccumCheck = null;
         }

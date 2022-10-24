@@ -12,16 +12,17 @@ namespace BC
         {
             if (other.TryGetComponent(out TestPlayer player)) // 손가락이 닿았을때로 변경해야함
             {
-                if (vacuumPack.type == VacuumPack.TYPE.slime)
-                {
-                    vacuumPack.type = VacuumPack.TYPE.item;
-                    transform.localPosition += new Vector3(0, 0, 1.8f);
-                }
-                else if (vacuumPack.type == VacuumPack.TYPE.item)
-                {
-                    vacuumPack.type = VacuumPack.TYPE.slime;
-                    transform.localPosition -= new Vector3(0, 0, 1.8f);
-                }
+                //if (vacuumPack.type == VacuumPack.TYPE.slime)
+                //{
+                //    vacuumPack.type = VacuumPack.TYPE.item;
+                //    transform.localPosition += new Vector3(0, 0, 1.8f);
+                //}
+                //else if (vacuumPack.type == VacuumPack.TYPE.item)
+                //{
+                //    vacuumPack.type = VacuumPack.TYPE.slime;
+                //    transform.localPosition -= new Vector3(0, 0, 1.8f);
+                //}
+                vacuumPack.isSlime = !vacuumPack.isSlime;
             }
         }
     }
