@@ -121,16 +121,22 @@ public class FarmMachine : MonoBehaviour
     //작물 제거 10G
     public void DeleteCrop()
     {
+        Debug.Log("작물 제거");
         for(int i = 0; i < childPlant.Length; i++)
         {
             childPlant[i].ItemReturn();
         }
         childPlant = null;
     }
+    public void startFunction(string func)
+    {
+        Invoke(func, 0.1f);
+    }
 
     //스프링클러(자동으로 물주는 거) : 500G
     public void Sprinkler()
     {
+        Debug.Log("자동 물주기");
         AutoWater();
         for (int i = 0; i < childPlant.Length; i++)
         {
@@ -177,4 +183,6 @@ public class FarmMachine : MonoBehaviour
             childPlant[i].isWater = true;
         }
     }
+
+    //public enum Event { Sprinkler, Fertilizer, Fertilizer, FertileSoil, MoreFruit, AutoWater }
 }

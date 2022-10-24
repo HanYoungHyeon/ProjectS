@@ -42,4 +42,8 @@ public class UIEventFunc : MonoBehaviour
         isClick = value;
     }
 
+    public void SelectFarmType()
+    {
+
+    }
 }

@@ -17,4 +17,6 @@ public class Upgrade : ScriptableObject
     [SerializeField]
     private int requireCoin;
     public int RequireCoin { get { return requireCoin; } }
+    
+
 }

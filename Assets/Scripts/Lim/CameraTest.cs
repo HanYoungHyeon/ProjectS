@@ -7,7 +7,7 @@ public class CameraTest : MonoBehaviour
 {
     public LayerMask mask;
     UIEventFunc target;
-    public static int money = 100;
+    public static int money = 100000;
     // Update is called once per frame
     void Update()
     {

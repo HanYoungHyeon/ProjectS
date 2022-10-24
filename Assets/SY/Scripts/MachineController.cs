@@ -13,6 +13,9 @@ public class MachineController : MonoBehaviour
     private GameObject machineUI;
     public List<GameObject> upgradeList = new List<GameObject>();
     public List<bool> isUpgrades;
+    [SerializeField]
+    private List<Farm> farmList = new List<Farm>();
+    private GameObject selectFarm;
     public Upgrade selectUpgrade;
 
     private void Awake()
@@ -47,7 +50,6 @@ public class MachineController : MonoBehaviour
     public void BuyUpgrade()
     {
         //캐릭터 소유 금액 -= 업그레이드 필요금액;
-        //얘 왤케 많이 실행됨??
         Debug.Log(selectUpgrade.RequireCoin);
         if(CameraTest.money - selectUpgrade.RequireCoin < 0)
         {
@@ -58,8 +60,9 @@ public class MachineController : MonoBehaviour
         {
             UIManager.Instance.MachineUI.upgradeSuccess.SetActive(true);
             CameraTest.money -= selectUpgrade.RequireCoin;
-            isUpgrades[farm.Upgrades.FindIndex(x => x.name == selectUpgrade.name)] = true;
-            UIManager.Instance.MachineUI.CountUpgradeList(); 
+            isUpgrades[farm.Upgrades.IndexOf(selectUpgrade)] = true;
+            farmMachine.startFunction(selectUpgrade.UpgradeName);
+            UIManager.Instance.MachineUI.CountUpgradeList();
             Debug.Log("업그레이드 성공");
         }
 

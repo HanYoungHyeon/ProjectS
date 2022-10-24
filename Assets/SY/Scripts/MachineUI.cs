@@ -23,7 +23,6 @@ public class MachineUI : MonoBehaviour
     {
         machineUIController = UIManager.Instance.MachineController;
         farm = UIManager.Instance.MachineController.farm;
-       
     }
 
 
