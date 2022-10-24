@@ -37,7 +37,7 @@ namespace BC
         {
             //interactionRay = cameraMain.ScreenPointToRay(transform.forward*5);
             //Physics.Raycast(interactionRay, out uiHit, uiInteractionDistance, uiMask);
-            if (Input.GetMouseButton(1))
+            if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))
             {
                 Time.timeScale = 0.1f;
                 Debug.DrawRay(leftHand.position, leftHand.forward * 10);
@@ -52,7 +52,7 @@ namespace BC
                     lineRenderer.SetPositions(linePositions);
                 }
             }
-            if (Input.GetMouseButtonUp(1))
+            if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger))
             {
                 Time.timeScale = 1f;
                 transform.position = movePointObject.transform.position;
