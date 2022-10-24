@@ -294,13 +294,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6705402075998324148}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!195 &554294139392345730
 NavMeshAgent:
@@ -347,7 +347,7 @@ MonoBehaviour:
     m_Bits: 0
   vacuumMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!135 &4494046011560699493
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -374,7 +374,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

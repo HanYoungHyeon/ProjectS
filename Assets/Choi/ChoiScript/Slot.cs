@@ -20,7 +20,7 @@ namespace BC
                 if(value == 0)
                 {
                     curSlotItem = null;
-                    itemImage = null;
+                    itemImage .sprite= null;
                 }
                 itemCount = value;
                 itemCountUI.text = value.ToString();

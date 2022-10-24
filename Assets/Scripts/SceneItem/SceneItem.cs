@@ -22,8 +22,8 @@ public class SceneItem : MonoBehaviour,IInteraction,IPoolingable,IItemable
         if (item as Slime != null) return;
         Debug.Log(item);
         curItem = item;
-        m_Filter.mesh = item.itemMesh;
-        m_Renderer.material = item.itemMaterilal;
+        m_Filter.sharedMesh = item.itemMesh;
+        m_Renderer.sharedMaterial = item.itemMaterilal;
     }
     protected virtual void ItemReset()
     {

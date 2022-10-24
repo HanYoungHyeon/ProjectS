@@ -52,7 +52,7 @@ namespace BC
         {
             curSlime = slime;
             sliemSkin.sharedMesh = slime.itemMesh;
-            sliemSkin.materials[0] = slime.itemMaterilal;
+            sliemSkin.sharedMaterials[0] = slime.itemMaterilal;
             FaceSet(slimeFace.Idleface);
             hungry = 0;
             agent.speed = curSlime.speed;
@@ -66,11 +66,10 @@ namespace BC
         {
          
             vaccumCheck?.Invoke();
+            if (isFlying) return;
             animator.SetFloat(Parameter.speed, agent.velocity.magnitude);
-            Debug.Log(agent.remainingDistance + " : " + agent.stoppingDistance);
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                Debug.Log("move");
                 idleCount += Time.fixedDeltaTime;
                 if(idleCount>5f)
                 {
@@ -143,6 +142,10 @@ namespace BC
 
         public void ItemReturn()
         {
+            animator.applyRootMotion = true;
+            rigi.isKinematic = true;
+            isFlying = false;
+            vaccumCheck = null;
             returnAcition?.Invoke();
             home.Return(this.gameObject);
         }
@@ -151,7 +154,7 @@ namespace BC
         {
             isFlying = true;
             rigi.isKinematic = false;
-            agent.ResetPath();
+            animator.applyRootMotion = false;
             vaccumCheck = VacuumCheck;
         }
         private void VacuumCheck()
@@ -159,6 +162,7 @@ namespace BC
             vacuumColliders[0] = null;
             Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, 0.27f, 0), 0.35f, vacuumColliders, vacuumMask, QueryTriggerInteraction.Collide);
             if (vacuumColliders[0] != null) return;
+            animator.applyRootMotion = true;
             if (!agent.isOnNavMesh) return;
             rigi.isKinematic = true;
             isFlying = false;

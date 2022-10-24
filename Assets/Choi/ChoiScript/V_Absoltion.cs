@@ -5,15 +5,15 @@ using UnityEngine;
 public class V_Absoltion : MonoBehaviour
 {
     [SerializeField]
-    float speed;
-    [SerializeField]
     Transform targetTransform;
+
+
     public void OnTriggerStay(Collider other)
     {
         if (other.transform.TryGetComponent(out IInteraction target))
         {
-            Vector3 direction = (targetTransform.position - other.transform.position - Physics.gravity).normalized;
-            target.rigi.AddForce(direction * speed);
+            Vector3 direction = targetTransform.position - other.transform.position;
+            target.rigi.AddForce(direction);
         }
     }
 

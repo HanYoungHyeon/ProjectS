@@ -9,7 +9,7 @@ namespace BC
     public class VacuumPack : MonoBehaviour
     {
         [SerializeField]
-        ParticleSystem particle;
+        GameObject particle;
         [SerializeField]
         private Slot[] slots;
         private Slot curSlot;
@@ -19,39 +19,51 @@ namespace BC
         private float releasePower; 
         [SerializeField]
         private Collider[] vacuumPackColliders;
+        [SerializeField]
+        private Transform releasPosition;
         public enum TYPE { slime, item }
         private enum MODE { absorption, release }
         public TYPE type = TYPE.slime;
         private MODE mode = MODE.absorption;
         private Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
-   
+
+
+        private void Awake()
+        {
+            curSlot = slots[0];
+        }
+
         private void Update()
         {
             ChangeMode();
-            if(OVRInput.GetDown(OVRInput.Button.Four))
-            //if(Input.GetKeyDown(KeyCode.K))
+            //if(OVRInput.GetDown(OVRInput.Button.Four))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 SlotChange();
             }
-            if(OVRInput.GetDown(OVRInput.Button.One))
-            //if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyDown(KeyCode.L))
+            //if(OVRInput.GetDown(OVRInput.Button.One))
+            if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyDown(KeyCode.L))
+            {
+
+                if (mode == MODE.absorption)
+                {
+                    ItemAbsorption();
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.L))
             {
                 if (mode == MODE.release)
                 {
                     ItemRelease();
-                }
-                else if (mode == MODE.absorption)
-                {
-                    ItemAbsorption();
                 }
             }
         }
 
         private void ChangeMode()
         {
-            if(OVRInput.GetDown(OVRInput.Button.Two))
-            //if(Input.GetKeyDown(KeyCode.T))
-            {
+            //if(OVRInput.GetDown(OVRInput.Button.Two))
+                if (Input.GetKeyDown(KeyCode.T))
+                {
                 if(mode == MODE.release)
                 {
                     mode = MODE.absorption;
@@ -66,7 +78,6 @@ namespace BC
         private void SlotChange()
         {
             slotIndex++;
-            Debug.Log("ÇöÀç½½·Ô: " + slotIndex);
             if(slotIndex == slots.Length)
             {
                 slotIndex = 0;
@@ -80,21 +91,21 @@ namespace BC
             {
                 col.enabled = !col.enabled;
             }
-            if (particle.isPlaying)
+            if(particle.activeSelf)
             {
-                particle.Stop();
+                particle.SetActive(false);
+                return;
             }
-            else
-            {
-                particle.Play();
-            }
+            particle.SetActive(true);
+
+
         }
 
         private void ItemRelease()
         {
-            if (curSlot.ItemCount == 0) return;
-            curSlot.ItemCount--;
+            if (curSlot.ItemCount <= 0) return;
             slotRelease[curSlot]?.Invoke();
+            curSlot.ItemCount--;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -152,21 +163,22 @@ namespace BC
 
         private void ReleaseGem()
         {
-            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Gem, transform.position));
+            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Gem, releasPosition.position));
         }
         private void ReleaseCrop()
         {
-            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Crop, transform.position));
+            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Crop, releasPosition.position));
         }
         private void ReleaseSlime()
         {
-            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Slime, transform.position));
+            ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Slime, releasPosition.position));
         }
 
         private void ReleaseForce(Transform itemTransform)
         {
-            itemTransform.TryGetComponent(out Rigidbody rig);
-            rig.AddForce(transform.forward * releasePower);
+            itemTransform.TryGetComponent(out IInteraction target);
+            target.MoveStop();
+            target.rigi.AddForce(releasPosition.forward * releasePower);
         }
     }
 }
