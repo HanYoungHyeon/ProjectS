@@ -10,6 +10,7 @@ public class UIEventFunc : MonoBehaviour
     public UnityEvent OffClick;
     public Upgrade upgrade;
     public Farm farm;
+    public GameObject machine;
     private int upgradePrice;
     private bool isClick = false;
 
@@ -48,5 +49,6 @@ public class UIEventFunc : MonoBehaviour
         UIManager.Instance.MachineController.farm = farm;
         UIManager.Instance.MachineUI.farm = farm;
         UIManager.Instance.MachineController.SelectFarm();
+        machine.SetActive(true);
     }
 }

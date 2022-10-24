@@ -12,7 +12,7 @@ public class MachineController : MonoBehaviour
     [SerializeField]
     private GameObject machineUI;
     public List<GameObject> upgradeList = new List<GameObject>();
-    public List<bool> isUpgrades;
+    public List<bool> isUpgrades = new List<bool>();
     private bool isSelectedFarm = false;
     [SerializeField]
     private List<GameObject> farmListUI = new List<GameObject>();
@@ -67,7 +67,7 @@ public class MachineController : MonoBehaviour
             UIManager.Instance.MachineUI.upgradeSuccess.SetActive(true);
             CameraTest.money -= selectUpgrade.RequireCoin;
             isUpgrades[farm.Upgrades.IndexOf(selectUpgrade)] = true;
-            farmMachine.startFunction(selectUpgrade.UpgradeName);
+            farmMachine.StartFunction(selectUpgrade.UpgradeName);
             UIManager.Instance.MachineUI.CountUpgradeList();
             Debug.Log("업그레이드 성공");
         }  
