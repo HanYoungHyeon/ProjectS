@@ -20,21 +20,27 @@ public class AutoGem : MonoBehaviour
     [SerializeField]
     private Transform interactionTransform;
     [SerializeField]
+    private List<GemsCount> gems;
+    [SerializeField]
     private Vector3 boxSize;
+    private ShowSlotInfo[] showSlotInfos;
     private float coolTime = 5f;
     private int slotCount = 2;
     private int totalCount = 0;
     private bool isCoolTime = false;
-    [SerializeField]
-    private List<GemsCount> gems;
     private void Start()
     {
+        showSlotInfos = GetComponentsInChildren<ShowSlotInfo>();
         gems = new List<GemsCount>(slotCount);
         StartCoroutine(CheckCoolTime(coolTime));
     }
     private void Update()
     {
         HarvestGem();
+    }
+    private void LateUpdate()
+    {
+        
     }
 
     private void HarvestGem()
@@ -58,7 +64,6 @@ public class AutoGem : MonoBehaviour
             }
         }
     }
-
     private bool CheckGemSlot(Gem gem)
     {
         if(gems.Count == 0)
@@ -99,7 +104,13 @@ public class AutoGem : MonoBehaviour
         }
         return false;
     }
-
+    private void UpdateSlot()
+    {
+        for (int i = 0; i < showSlotInfos.Length; i++)
+        {
+            showSlotInfos[i].ChangeImage(gems[i].gem, gems[i].count);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Vacuum")
