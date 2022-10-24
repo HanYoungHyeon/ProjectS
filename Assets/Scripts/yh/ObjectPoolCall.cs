@@ -45,13 +45,13 @@ public class ObjectPoolCall : MonoBehaviour
         curSlimeAmount = 0;
         maxSlimeAmount = 15;
         curPlantAmount = 0;
-        maxPlantAmount = 3;
-        objectPool = ObjectPoolManager.Instance.PoolRequest(slime, maxSlimeAmount, 0);
-        carrotPool = ObjectPoolManager.Instance.PoolRequest(carrot, maxPlantAmount, 0);
-        cornPool = ObjectPoolManager.Instance.PoolRequest(corn, maxPlantAmount, 0);
-        eggplantPool = ObjectPoolManager.Instance.PoolRequest(eggplant, maxPlantAmount, 0);
-        pumpkinPool = ObjectPoolManager.Instance.PoolRequest(pumpkin, maxPlantAmount, 0);
-        tomatoPool = ObjectPoolManager.Instance.PoolRequest(tomato, maxPlantAmount, 0);
+        maxPlantAmount = 15;
+        objectPool = ObjectPoolManager.Instance.PoolRequest(slime, 45, 5);
+        carrotPool = ObjectPoolManager.Instance.PoolRequest(carrot, 3, 5);
+        cornPool = ObjectPoolManager.Instance.PoolRequest(corn, 3, 5);
+        eggplantPool = ObjectPoolManager.Instance.PoolRequest(eggplant, 3, 5);
+        pumpkinPool = ObjectPoolManager.Instance.PoolRequest(pumpkin, 3, 5);
+        tomatoPool = ObjectPoolManager.Instance.PoolRequest(tomato, 3, 5);
     }
     private void Start()
     {
@@ -60,7 +60,8 @@ public class ObjectPoolCall : MonoBehaviour
 
     IEnumerator CheckSlime()
     {
-          while (true)
+        bool isSlimeCount = true;
+          while (isSlimeCount)
          {
             if (curSlimeAmount < maxSlimeAmount)
             {
@@ -79,6 +80,10 @@ public class ObjectPoolCall : MonoBehaviour
                     returnSlime.ItemReturn();
                 }
             }
+            else if(curSlimeAmount == maxSlimeAmount)
+            {
+                yield return new WaitWhile(() => curSlimeAmount == maxSlimeAmount);
+            }
             if (curPlantAmount < maxPlantAmount)
             {
                 yield return new WaitForSeconds(1f);
@@ -89,6 +94,18 @@ public class ObjectPoolCall : MonoBehaviour
                 plants.Add(tomatoPool.Call(tomatoPosition, Quaternion.identity).gameObject);
                 curPlantAmount += 5;
             }
+            else if (curPlantAmount > maxPlantAmount)
+            {
+                foreach (var go in plants)
+                {
+                    plants.Remove(go);
+                    carrotPool.Return(go);
+                    cornPool.Return(go);
+                    eggplantPool.Return(go);
+                    carrotPool.Return(go);
+                    carrotPool.Return(go);
+                }
+            }  
         }
       }
 
