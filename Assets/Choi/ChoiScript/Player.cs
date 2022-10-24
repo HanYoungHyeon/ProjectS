@@ -37,10 +37,10 @@ namespace BC
         {
             //interactionRay = cameraMain.ScreenPointToRay(transform.forward*5);
             //Physics.Raycast(interactionRay, out uiHit, uiInteractionDistance, uiMask);
+            Debug.DrawRay(leftHand.position, leftHand.forward * 10);
             if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))
             {
                 Time.timeScale = 0.1f;
-                Debug.DrawRay(leftHand.position, leftHand.forward * 10);
                 if(Physics.Raycast(leftHand.position, leftHand.forward, out movementHit, Mathf.Infinity, groundMask))
                 //if (Physics.Raycast(moveRay, out movementHit, Mathf.Infinity, groundMask))
                 {
@@ -55,7 +55,7 @@ namespace BC
             if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger))
             {
                 Time.timeScale = 1f;
-                transform.position = movePointObject.transform.position;
+                transform.position = movePointObject.transform.position + new Vector3(0, 0.75f, 0);
                 movePointObject.SetActive(false);
             }
         }
