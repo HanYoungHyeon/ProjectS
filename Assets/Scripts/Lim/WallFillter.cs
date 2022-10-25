@@ -36,16 +36,16 @@ public class WallFillter : MonoBehaviour
             {
                 opposite = Vector3.Reflect(forSlime.rigi.velocity, transform.up);
             }
-            forSlime.MoveStop(1f);
+            forSlime.MoveStop(0.2f);
             rb.velocity = Vector3.zero;
-            rb.AddForce(opposite*0.1f, ForceMode.Impulse);
+            rb.AddForce(opposite*0.05f, ForceMode.Impulse);
         }
         if (rb != null)
         {
             Vector3 opposite = Vector3.Reflect(rb.velocity, transform.up);
             //rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, rb.velocity.z * -1);
             rb.velocity = Vector3.zero;
-            rb.AddForce(opposite*0.1f,ForceMode.Impulse);
+            rb.AddForce(opposite*0.05f,ForceMode.Impulse);
         }
         //}
         //else
