@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2798508974380680363}
   - component: {fileID: 3270716299567410186}
   - component: {fileID: -6700545929184947417}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SceneGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

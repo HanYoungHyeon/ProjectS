@@ -47,7 +47,6 @@ public class AutoGem : MonoBehaviour
     {
         if (isCoolTime)
             return;
-
         Collider[] colliders = Physics.OverlapBox(centerTransform.position, boxSize, Quaternion.identity, gemLayer);
         if(colliders.Length>0)
         {

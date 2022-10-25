@@ -64,7 +64,7 @@ public class AutoFeed : MonoBehaviour
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                Crop targetCrop = colliders[i].GetComponent<Crop>();
+                Crop targetCrop = colliders[i].GetComponent<SceneCrop>().Crop;
                 if(crop == null)
                 {
                     crop = targetCrop;
