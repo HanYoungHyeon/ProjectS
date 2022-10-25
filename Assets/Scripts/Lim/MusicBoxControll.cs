@@ -29,6 +29,7 @@ public class MusicBoxControll : MonoBehaviour
         if (curClipNum + 1 >= audioClip.Length)
             curClipNum = 0;
         audioSource.clip = audioClip[curClipNum];
+        audioSource.Play();
         curClipNum++;
     }
 }

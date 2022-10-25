@@ -1,7 +1,7 @@
+using Oculus.Interaction;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [Serializable]
@@ -20,11 +20,13 @@ public class AutoGem : MonoBehaviour
     [SerializeField]
     private Transform interactionTransform;
     [SerializeField]
+    private Transform harvestTransform;
+    [SerializeField]
     private List<GemsCount> gems;
     [SerializeField]
     private Vector3 boxSize;
     private ShowSlotInfo[] showSlotInfos;
-    private float coolTime = 5f;
+    private float coolTime = 10f;
     private int slotCount = 2;
     private int totalCount = 0;
     private bool isCoolTime = false;
@@ -53,13 +55,15 @@ public class AutoGem : MonoBehaviour
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].TryGetComponent(out SceneGem target);
-                Gem gem = target.ItemRequest() as Gem;
-                bool check = CheckGemSlot(gem);
-                if(check)
-                {
-                    target.home.Return(colliders[i].gameObject);
-                    totalCount++;
-                }
+                colliders[i].TryGetComponent(out Rigidbody targetRb);
+                StartCoroutine(VaccumGem(target, targetRb));
+                //Gem gem = target.ItemRequest() as Gem;
+                //bool check = CheckGemSlot(gem);
+                //if(check)
+                //{
+                //    target.home.Return(colliders[i].gameObject);
+                //    totalCount++;
+                //}
             }
         }
     }
@@ -119,14 +123,14 @@ public class AutoGem : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Vacuum")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Vaccum"))
         {
             StartCoroutine(SummonGem());
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Vacuum")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Vaccum"))
         {
             StopCoroutine(SummonGem());
         }
@@ -154,7 +158,26 @@ public class AutoGem : MonoBehaviour
             {
                 gems.RemoveAt(slotNum);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
+        }
+        yield return null;
+    }
+    IEnumerator VaccumGem(SceneGem target,Rigidbody targetRb)
+    {
+        while (true)
+        {
+            if (Vector3.Distance(target.transform.position, harvestTransform.position) < 1f)
+                break;
+            targetRb.velocity = (harvestTransform.position-targetRb.transform.position).normalized*3f;
+            Debug.Log(Vector3.Distance(harvestTransform.position, targetRb.transform.position));
+            yield return new WaitForSeconds(0.1f);
+        }
+        Gem gem = target.ItemRequest() as Gem;
+        bool check = CheckGemSlot(gem);
+        if (check)
+        {
+            target.home.Return(target.gameObject);
+            totalCount++;
         }
         yield return null;
     }
