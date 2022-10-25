@@ -32,8 +32,8 @@ public class SceneItem : MonoBehaviour,IInteraction,IPoolingable,IItemable
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.Euler(Vector3.zero);
         curItem = null;
-        m_Filter.mesh = null;
-        m_Renderer.material = null;
+        m_Filter.sharedMesh = null;
+        m_Renderer.sharedMaterial = null;
     }
 
     public Item ItemRequest()
