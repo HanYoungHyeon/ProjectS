@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HighWall
   m_EditorClassIdentifier: 
   upgradeName: High Wall
-  upgradeInfo: Active High Wall
-  upgradeImage: {fileID: 0}
+  upgradeInfo: Creates a higher fence
+  upgradeImage: {fileID: 21300000, guid: 7eea434ee34ee1d46bd400fb286c07cb, type: 3}
   requireCoin: 10

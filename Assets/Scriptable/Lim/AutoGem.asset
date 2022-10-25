@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AutoGem
   m_EditorClassIdentifier: 
   upgradeName: AutoGem
-  upgradeInfo: Active AutoGem
-  upgradeImage: {fileID: 0}
+  upgradeInfo: Collects gems automatically at regular intervals
+  upgradeImage: {fileID: 21300000, guid: 321a5ba81df81a44fb59764cc71debc5, type: 3}
   requireCoin: 10

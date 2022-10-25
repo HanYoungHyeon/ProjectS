@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlimeFarm
   m_EditorClassIdentifier: 
   farmName: Slime Farm
-  farmImage: {fileID: 0}
+  farmImage: {fileID: 21300000, guid: 5c1297512a78e244c8d20ebe72d5ae66, type: 3}
   upgrades:
   - {fileID: 11400000, guid: 01b145bb9272a3342aaa990a4177e82a, type: 2}
   - {fileID: 11400000, guid: 2773a9b94527dfb41b2366d4a2fc6b47, type: 2}

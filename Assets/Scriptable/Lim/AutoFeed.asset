@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AutoFeed
   m_EditorClassIdentifier: 
   upgradeName: AutoFeed
-  upgradeInfo: Active AutoFeed
-  upgradeImage: {fileID: 0}
+  upgradeInfo: Feeds automatically at regular intervals
+  upgradeImage: {fileID: 21300000, guid: c5b25bf55b58a814ca0da5a0cb695ba7, type: 3}
   requireCoin: 10

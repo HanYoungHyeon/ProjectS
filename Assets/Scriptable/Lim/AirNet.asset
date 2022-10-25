@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AirNet
   m_EditorClassIdentifier: 
   upgradeName: AirNet
-  upgradeInfo: active AirNet
-  upgradeImage: {fileID: 0}
+  upgradeInfo: Creates a net that prevents slimes from escaping into the ceiling
+  upgradeImage: {fileID: 21300000, guid: 50bb7b0c536316342a02059ce1273ed2, type: 3}
   requireCoin: 10

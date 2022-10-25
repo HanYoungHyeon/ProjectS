@@ -8,7 +8,7 @@ public class Upgrade : ScriptableObject
     [SerializeField]
     private string upgradeName;
     public string UpgradeName { get { return upgradeName; } }
-    [SerializeField]
+    [SerializeField,TextArea(3,5)]
     private string upgradeInfo;
     public string UpgradeInfo { get { return upgradeInfo; } }
     [SerializeField]
