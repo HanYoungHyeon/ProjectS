@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181678bd2ead8954897fbe47eea9ef57, type: 3}
   m_Name: CrownSlime
   m_EditorClassIdentifier: 
+  _type: 0
   _itemName: "\uC655\uC2AC\uB77C\uC784"
-  _itemSprite: {fileID: 21300000, guid: 9cb8d048a1c36194ca1bfacc4e6408a8, type: 3}
+  _itemSprite: {fileID: 21300000, guid: 7f36c25ad3ffa364abbe4effcd15651f, type: 3}
   _itemMesh: {fileID: -2659932603334005503, guid: 9981a4f80fb95b04fb9d36e07baa17cb, type: 3}
   _itemMaterial: {fileID: 2100000, guid: 507fed0338ce65948937cd10a0904a51, type: 2}
   likeFeed: {fileID: 0}

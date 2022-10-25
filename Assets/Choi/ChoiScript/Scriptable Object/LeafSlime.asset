@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181678bd2ead8954897fbe47eea9ef57, type: 3}
   m_Name: LeafSlime
   m_EditorClassIdentifier: 
+  _type: 0
   _itemName: "\uB098\uBB47\uC78E\uC2AC\uB77C\uC784"
-  _itemSprite: {fileID: 21300000, guid: 69e50719d8f70b74eba8f6ba4e9458aa, type: 3}
+  _itemSprite: {fileID: 21300000, guid: a57fc1f0e76311c448f94d1212a1cefd, type: 3}
   _itemMesh: {fileID: 9117543207126802746, guid: a2f1a2a97ec26bb47825031d7f3e94f3, type: 3}
   _itemMaterial: {fileID: 2100000, guid: 0ac85d6e19b5e24419fc938040be61e1, type: 2}
   likeFeed: {fileID: 0}
