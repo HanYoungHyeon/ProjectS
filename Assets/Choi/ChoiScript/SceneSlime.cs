@@ -94,7 +94,6 @@ namespace BC
 
         private void SlimeMovement()
         {
-            if (isFlying) return;
             FaceSet(slimeFace.jumpFace);
             raycastOrigin.localRotation = Quaternion.Euler(new Vector3(10, Random.Range(0, 360f), 0));
             if(Physics.Raycast(raycastOrigin.position, raycastOrigin.forward, out hit, Mathf.Infinity, groundMask))
@@ -174,7 +173,7 @@ namespace BC
                 transform.parent = null;
                 return;
             }
-            if(delay != 0)
+            if (delay != 0)
             {
                 agentDelayCount += Time.fixedDeltaTime;
                 if(agentDelayCount<agentDelay)

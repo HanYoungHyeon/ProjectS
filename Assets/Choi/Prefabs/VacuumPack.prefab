@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2001201890174757659}
   - component: {fileID: 3581299006026690346}
   - component: {fileID: 3415161553653331215}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: V_Absoltion Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2560090819913434cb0dab8feb313ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 5010645991593270100}
-  vacuumPack: {fileID: 0}
+  targetTransform: {fileID: 3997759558611046715}
+  vacuumPack: {fileID: 5805880357154721163}
 --- !u!64 &3415161553653331215
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -345,11 +345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f415e237b8a7e2946a3565dba10ae90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
-  slots: []
+  colors:
+  - {r: 0.5741812, g: 0.6390462, b: 0.6509434, a: 0.64705884}
+  - {r: 0.9528302, g: 0.725824, b: 0.21124065, a: 0.64705884}
   releasePower: 2
-  vacuumPackColliders: []
-  releasPosition: {fileID: 0}
   isSlime: 0
 --- !u!65 &3213540462628509432
 BoxCollider:
@@ -359,7 +358,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5010645991592904564}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.8751338, y: 9.563654, z: 5.71167}
@@ -764,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4081270048202908850, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.3
+      value: 2.59
       objectReference: {fileID: 0}
     - target: {fileID: 4081270048202908850, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -788,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4081270048202908850, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.23
+      value: 7.23
       objectReference: {fileID: 0}
     - target: {fileID: 4081270048202908850, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -805,6 +804,22 @@ PrefabInstance:
     - target: {fileID: 4081270048202908854, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_Name
       value: SlotWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081270048653223400, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
+      propertyPath: m_Color.a
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081270048653223400, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081270048653223400, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6390462
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081270048653223400, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5741812
       objectReference: {fileID: 0}
     - target: {fileID: 4081270048653223403, guid: 917f6804fe76b1c44aca23a0abd703a6, type: 3}
       propertyPath: m_ChildScaleWidth

@@ -20,7 +20,7 @@ public class MarketConsole : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out CapsuleCollider player))
+        if(other.TryGetComponent(out CharacterController target))
         {
             marketWindow.gameObject.SetActive(true);
             marketWindow.MarketPopUp();

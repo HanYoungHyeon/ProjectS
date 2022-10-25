@@ -45,6 +45,7 @@ public class MarketWindow : MonoBehaviour
             {
                 marketGem.PriceSet();
             }
+            curDay = TimeManager.Instance.dayCount;
         }
     }
 

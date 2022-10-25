@@ -17,7 +17,7 @@ public class V_Absoltion : MonoBehaviour
             bool isSlime = target.type == Item.ItemType.Slime;
             if (isSlime != vacuumPack.isSlime) return;
             Vector3 direction = targetTransform.position - other.transform.position;
-            target.rigi.AddForce(direction);
+            target.rigi.AddForce(direction*5);
         }
     }
     private void OnTriggerEnter(Collider other)

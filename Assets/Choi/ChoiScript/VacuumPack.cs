@@ -8,6 +8,8 @@ namespace BC
 {
     public class VacuumPack : MonoBehaviour
     {
+        [SerializeField]
+        Color[] colors;
         GameObject particle;
         private List<Slot> slots = new List<Slot>();
         private Slot curSlot;
@@ -16,9 +18,11 @@ namespace BC
         private float releasePower;
         private Collider[] vacuumPackColliders = new Collider[2];
         private Transform releasPosition;
+        private UnityEngine.UI.Image image;
         public bool isSlime;
         private bool isRelease;
         private bool isAbsorption;
+        private float releasDelay;
         private Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
 
         private void Awake()
@@ -29,6 +33,7 @@ namespace BC
             transform.FindComponentChild(out MeshCollider tempColliders);
             vacuumPackColliders[1] = tempColliders;
             Transform windowTransform = transform.FindComponentChild<Canvas>().GetChild(0);
+            windowTransform.TryGetComponent(out image);
             for(int i=0; i<windowTransform.childCount; i++)
             {
                 slots.Add(windowTransform.GetChild(i).GetComponent<Slot>());
@@ -42,30 +47,54 @@ namespace BC
         private void Update()
         {
             ChangeMode();
-            //if(OVRInput.GetDown(OVRInput.Button.Four))
-            if (Input.GetKeyDown(KeyCode.K))
+            if(OVRInput.GetDown(OVRInput.Button.Four))
+            //if (Input.GetKeyDown(KeyCode.K))
             {
                 SlotChange();
             }
-            //if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
-            if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyUp(KeyCode.L))
+            if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+            //if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyUp(KeyCode.L))
             {
-                if(!isRelease) ItemAbsorption();
+                if(isRelease)
+                {
+                    ItemRelease();
+                }
+                else
+                {
+                    ItemAbsorption(true);
+                } 
+            }
+            if(OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
+            {
+                if(!isRelease)
+                {
+                    ItemAbsorption(false);
+                }
             }
             //if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)&&isRelease)
-            if (Input.GetKeyDown(KeyCode.L) && isRelease)
-            {
-                ItemRelease();
-            }
+            ////if (Input.GetKeyDown(KeyCode.L) && isRelease)
+            //{
+               
+            //}
         }
 
         private void ChangeMode()
         {
-            //if(OVRInput.GetDown(OVRInput.Button.Two))
-            if (Input.GetKeyDown(KeyCode.T))
+            if(OVRInput.GetDown(OVRInput.Button.Two))
+            //if (Input.GetKeyDown(KeyCode.T))
             {
-                isRelease = !isRelease;
-                if (isAbsorption) ItemAbsorption();
+                if(isRelease)
+                {
+                    image.color = colors[0];
+                    isRelease = false;
+                }
+                else
+                {
+                    image.color = colors[1];
+                    isRelease = true;
+                }
+                if (isAbsorption) ItemAbsorption(false);
+
             }
         }
 
@@ -81,21 +110,26 @@ namespace BC
             curSlot.ScaleUp(true);
         }
 
-        private void ItemAbsorption()
+        private void ItemAbsorption(bool active)
         {
-            isAbsorption = !isAbsorption;
-            particle.SetActive(!particle.activeSelf);
+            isAbsorption = active;
+            particle.SetActive(active);
             foreach (var col in vacuumPackColliders)
             {
-                col.enabled = !col.enabled;
+                col.enabled = active;
             }
         }
 
         private void ItemRelease()
         {
+            releasDelay += Time.fixedDeltaTime;
             if (curSlot.ItemCount == 0) return;
-            slotRelease[curSlot]?.Invoke();
-            curSlot.ItemCount--;
+            if(releasDelay>0.3f)
+            {
+                slotRelease[curSlot]?.Invoke();
+                curSlot.ItemCount--;
+                releasDelay = 0;
+            }
         }
 
         private void OnTriggerEnter(Collider other)

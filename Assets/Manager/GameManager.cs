@@ -5,6 +5,7 @@ using System.Linq;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField]
     public List<Gem> detectionGems = new List<Gem>();
     public float playerGold;
 
