@@ -8,29 +8,36 @@ namespace BC
 {
     public class VacuumPack : MonoBehaviour
     {
-        [SerializeField]
         GameObject particle;
-        [SerializeField]
-        private Slot[] slots;
+        private List<Slot> slots = new List<Slot>();
         private Slot curSlot;
-        [SerializeField]
         private int slotIndex;
         [SerializeField]
-        private float releasePower; 
-        [SerializeField]
-        private Collider[] vacuumPackColliders;
-        [SerializeField]
+        private float releasePower;
+        private Collider[] vacuumPackColliders = new Collider[2];
         private Transform releasPosition;
-        //public enum TYPE { slime, item }
-        //public TYPE type = TYPE.slime;
         public bool isSlime;
         private bool isRelease;
+        private bool isAbsorption;
         private Dictionary<Slot, UnityAction> slotRelease = new Dictionary<Slot, UnityAction>();
 
         private void Awake()
         {
+            transform.FindComponentChild(out ParticleSystem particleGo);
+            particle = particleGo.gameObject;
+            vacuumPackColliders[0] = GetComponent<Collider>();      
+            transform.FindComponentChild(out MeshCollider tempColliders);
+            vacuumPackColliders[1] = tempColliders;
+            Transform windowTransform = transform.FindComponentChild<Canvas>().GetChild(0);
+            for(int i=0; i<windowTransform.childCount; i++)
+            {
+                slots.Add(windowTransform.GetChild(i).GetComponent<Slot>());
+            }
             curSlot = slots[0];
+            releasPosition = transform.Find("ReleasPosition");
         }
+
+
 
         private void Update()
         {
@@ -40,15 +47,16 @@ namespace BC
             {
                 SlotChange();
             }
-            //if(OVRInput.GetDown(OVRInput.Button.One))
+            //if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) || OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
             if (Input.GetKeyDown(KeyCode.L)|| Input.GetKeyUp(KeyCode.L))
             {
                 if(!isRelease) ItemAbsorption();
             }
-            if(Input.GetKeyDown(KeyCode.L)&&isRelease)
+            //if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)&&isRelease)
+            if (Input.GetKeyDown(KeyCode.L) && isRelease)
             {
                 ItemRelease();
-            }          
+            }
         }
 
         private void ChangeMode()
@@ -57,21 +65,25 @@ namespace BC
             if (Input.GetKeyDown(KeyCode.T))
             {
                 isRelease = !isRelease;
+                if (isAbsorption) ItemAbsorption();
             }
         }
 
         private void SlotChange()
         {
             slotIndex++;
-            if(slotIndex == slots.Length)
+            if(slotIndex == slots.Count)
             {
                 slotIndex = 0;
             }
+            curSlot.ScaleUp(false);
             curSlot = slots[slotIndex];
+            curSlot.ScaleUp(true);
         }
 
         private void ItemAbsorption()
         {
+            isAbsorption = !isAbsorption;
             particle.SetActive(!particle.activeSelf);
             foreach (var col in vacuumPackColliders)
             {
@@ -138,7 +150,6 @@ namespace BC
             }
             return null;
         }
-
         private void ReleaseGem()
         {
             ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Gem, releasPosition.position));
@@ -151,7 +162,6 @@ namespace BC
         {
             ReleaseForce(ItemManager.Instance.CreateSceneItem(curSlot.curSlotItem as Slime, releasPosition.position));
         }
-
         private void ReleaseForce(Transform itemTransform)
         {
             itemTransform.TryGetComponent(out IInteraction target);

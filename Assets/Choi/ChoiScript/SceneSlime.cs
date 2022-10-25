@@ -57,8 +57,9 @@ namespace BC
             sliemSkin.sharedMaterials[0] = slime.itemMaterilal;
             FaceSet(slimeFace.Idleface);
             hungry = 0;
+            agent.enabled = true;
             agent.speed = curSlime.speed;
-            SlimeMovement();
+            isFlying = false;
         }
         public void FaceSet(Texture tex)
         {
@@ -143,10 +144,11 @@ namespace BC
 
         public void ItemReturn()
         {
+            vaccumCheck = null;
+            agent.enabled = false;
             animator.applyRootMotion = true;
             rigi.isKinematic = true;
-            isFlying = false;
-            vaccumCheck = null;
+            isFlying = true;
             returnAcition?.Invoke();
             home.Return(this.gameObject);
         }

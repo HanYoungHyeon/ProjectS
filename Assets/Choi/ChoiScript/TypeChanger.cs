@@ -4,27 +4,28 @@ using UnityEngine;
 
 namespace BC
 {
-    public class TypeChanger : MonoBehaviour
+    public class TypeChanger : MonoBehaviour,IStabable
     {
-        [SerializeField]
         VacuumPack vacuumPack;
-        private void OnTriggerEnter(Collider other)
+        private void Awake()
         {
-            if (other.TryGetComponent(out TestPlayer player)) // 손가락이 닿았을때로 변경해야함
-            {
-                //if (vacuumPack.type == VacuumPack.TYPE.slime)
-                //{
-                //    vacuumPack.type = VacuumPack.TYPE.item;
-                //    transform.localPosition += new Vector3(0, 0, 1.8f);
-                //}
-                //else if (vacuumPack.type == VacuumPack.TYPE.item)
-                //{
-                //    vacuumPack.type = VacuumPack.TYPE.slime;
-                //    transform.localPosition -= new Vector3(0, 0, 1.8f);
-                //}
-                vacuumPack.isSlime = !vacuumPack.isSlime;
-            }
+            transform.parent.TryGetComponent(out vacuumPack);
         }
+        public void StabEvent()
+        {
+            if (vacuumPack.isSlime)
+            {
+                vacuumPack.isSlime = false;
+                transform.localPosition -= new Vector3(0, 0, 1.8f);
+                return;
+            }
+            vacuumPack.isSlime = true;
+            transform.localPosition += new Vector3(0, 0, 1.8f);
+        }
+
+ 
+
+
     }
 
 }
