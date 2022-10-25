@@ -14,7 +14,7 @@ public class ScenePlant : MonoBehaviour, IPoolingable
     [SerializeField]
     private Plant plant;
     public Plant Plant { get { return plant; }  set { plant = value; } }
-    private float bornTime;
+    public float bornTime;
     private MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
     private bool isGrow;

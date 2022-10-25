@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class FarmMachine : MonoBehaviour
@@ -19,7 +20,10 @@ public class FarmMachine : MonoBehaviour
     public ScenePlant[] childPlant;
     [SerializeField]
     private GameObject sprinkler;
+    [SerializeField]
+    private Image cropImage;
     public Crop tempCrop;
+    
     
 
     private void Start()
@@ -52,6 +56,7 @@ public class FarmMachine : MonoBehaviour
                 if (target != null)
                 {
                     Plant(target);
+                    cropImage.sprite = target.Crop.itemSprite;
                     growTime = target.Plant.growTime;
                     StartGrow();
                     target.ItemReturn();
@@ -133,6 +138,7 @@ public class FarmMachine : MonoBehaviour
         {
             childPlant[i].ItemReturn();
         }
+        cropImage.sprite = null;
         childPlant = null;
     }
 
@@ -140,7 +146,8 @@ public class FarmMachine : MonoBehaviour
     public void Sprinkler()
     {
         Debug.Log("자동 물주기");
-        if(childPlant != null)
+        sprinkler.SetActive(true);
+        if (childPlant != null)
         {
             AutoWater();
             for (int i = 0; i < childPlant.Length; i++)
@@ -165,7 +172,7 @@ public class FarmMachine : MonoBehaviour
     {
         for (int i = 0; i < childPlant.Length; i++)
         {
-           // childPlant[i].isWater = true;
+           //childPlant[i].rotTime -= 2f;
         }
     }
 
@@ -174,7 +181,7 @@ public class FarmMachine : MonoBehaviour
     {
         for (int i = 0; i < childPlant.Length; i++)
         {
-            //childPlant[i].isWater = true;
+            //childPlant[i].bornTime += 1f;
         }
     }
 

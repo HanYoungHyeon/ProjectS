@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PlantFarm
   m_EditorClassIdentifier: 
   farmName: Plant Farm Upgrade
-  farmImage: {fileID: 0}
+  farmImage: {fileID: 21300000, guid: accea2aab3cea4cb98974a9b015c2b65, type: 3}
   upgrades:
   - {fileID: 11400000, guid: de364992e0098442485bdfc29bce8da1, type: 2}
   - {fileID: 11400000, guid: a366b81a4313244c3a9b136a11e33c9b, type: 2}
+  - {fileID: 11400000, guid: 7623237aaf1c84bc9a08f0039be380d2, type: 2}
+  - {fileID: 11400000, guid: 3a579f62b56034f54b59e2f7a172d792, type: 2}
+  - {fileID: 11400000, guid: f64044923c3ce4ed3a4876c33f7a6fb2, type: 2}

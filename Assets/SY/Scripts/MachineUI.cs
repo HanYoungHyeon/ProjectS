@@ -14,6 +14,8 @@ public class MachineUI : MonoBehaviour
     private TextMeshProUGUI upgradeInfo;
     [SerializeField]
     private TextMeshProUGUI upgradePrice;
+    [SerializeField]
+    private Image upgradeImage;
     public GameObject upgradeFail;
     public GameObject upgradeSuccess;
     private MachineController machineUIController;
@@ -38,6 +40,7 @@ public class MachineUI : MonoBehaviour
         upgradeName.text = upgrade.UpgradeName;
         upgradePrice.text = upgrade.RequireCoin + "";
         upgradeInfo.text = upgrade.UpgradeInfo;
+        upgradeImage.sprite = upgrade.UpgradeImage;
         machineUIController.selectUpgrade = upgrade;
     }
 

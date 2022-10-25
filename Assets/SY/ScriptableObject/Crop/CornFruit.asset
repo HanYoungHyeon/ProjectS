@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b3f26c14f5ec34598e5c3fe47f0bd7, type: 3}
+  m_Name: CornFruit
+  m_EditorClassIdentifier: 
+  _itemName: Corn
+  _itemSprite: {fileID: 21300000, guid: 23de36d9c9c854d4dbb503079e846575, type: 3}
+  _itemMesh: {fileID: 4300014, guid: b69b26c8b73b8bd49bf243bbe541a2e0, type: 3}
+  _itemMaterial: {fileID: 2100000, guid: bd3ac3aaa239ebf4396eb261af13874d, type: 2}
+  _discardTime: 2
+  plant: {fileID: 11400000, guid: fff56e530f9ef406f8bed9b33875c16b, type: 2}
