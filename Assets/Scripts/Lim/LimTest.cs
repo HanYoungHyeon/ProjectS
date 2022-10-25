@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class LimTest : MonoBehaviour
 {
-    private Camera playerCamera;
-    private LayerMask structurLayer;
+    Rigidbody rb;
 
     private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
@@ -17,12 +16,25 @@ public class LimTest : MonoBehaviour
     }
     public void CheckStructur()
     {
-        RaycastHit hit;
-        Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,out hit,10f,structurLayer);
-        SlimeFarmMachine target = hit.transform.GetComponent <SlimeFarmMachine>();
-        if(target != null)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            //target.UpgradeUI.SetActive(true);
+            rb.AddForce(Vector3.forward,ForceMode.Impulse);
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            rb.AddForce(Vector3.forward, ForceMode.Impulse);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            rb.AddForce(Vector3.right, ForceMode.Impulse);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            rb.AddForce(Vector3.right, ForceMode.Impulse);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up, ForceMode.Impulse);
         }
     }
 }

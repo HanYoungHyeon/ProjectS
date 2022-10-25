@@ -17,7 +17,7 @@ namespace BC
         private Animator animator;
         private SkinnedMeshRenderer sliemSkin;
         private NavMeshAgent agent;
-        public NavMeshAgent Agent { get; private set; }
+        public NavMeshAgent Agent { get { return agent; } }
         public Rigidbody rigi { get; set; }
         public ObjectPool home { get; set; }
         public Item.ItemType type { get { return curSlime.type; }}
@@ -148,7 +148,6 @@ namespace BC
             agent.enabled = false;
             animator.applyRootMotion = true;
             rigi.isKinematic = true;
-            rigi.useGravity = true;
             isFlying = true;
             returnAcition?.Invoke();
             home.Return(this.gameObject);
@@ -158,7 +157,6 @@ namespace BC
         public void MoveStop(float delay)
         {
             isFlying = true;
-            rigi.useGravity = false;
             rigi.isKinematic = false;
             animator.applyRootMotion = false;
             agent.enabled = false;
@@ -171,7 +169,11 @@ namespace BC
         {
             vacuumColliders[0] = null;
             Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, 0.27f, 0), 0.35f, vacuumColliders, vacuumMask, QueryTriggerInteraction.Collide);
-            if (vacuumColliders[0] != null) return;
+            if (vacuumColliders[0] != null)
+            {
+                transform.parent = null;
+                return;
+            }
             if(delay != 0)
             {
                 agentDelayCount += Time.fixedDeltaTime;
@@ -185,7 +187,6 @@ namespace BC
                     agentDelay = 0;
                 }
             }
-            rigi.useGravity = true;
             if (!NavMesh.SamplePosition(transform.position,out navHit,0.3f,NavMesh.AllAreas)) return;
             rigi.isKinematic = true;
             agent.enabled = true;
