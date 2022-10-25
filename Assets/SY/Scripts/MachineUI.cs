@@ -16,6 +16,10 @@ public class MachineUI : MonoBehaviour
     private TextMeshProUGUI upgradePrice;
     [SerializeField]
     private Image upgradeImage;
+    [SerializeField]
+    private Image titleImage;
+    [SerializeField]
+    private TextMeshProUGUI titleName;
     public GameObject upgradeFail;
     public GameObject upgradeSuccess;
     private MachineController machineUIController;
@@ -63,6 +67,12 @@ public class MachineUI : MonoBehaviour
             }
            
         }
+    }
+
+    public void ShowTitle()
+    {
+        titleImage.sprite = farm.FarmImage;
+        titleName.text = farm.FarmName;
     }
 
 }

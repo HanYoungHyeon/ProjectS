@@ -79,6 +79,7 @@ public class MachineController : MonoBehaviour
         farmListUI[1].SetActive(true);
         UIManager.Instance.MachineUI.CountUpgradeList();
         selectFarm = farmListUI[1];
+        UIManager.Instance.MachineUI.ShowTitle();
         isSelectedFarm = true;
     }
 }
