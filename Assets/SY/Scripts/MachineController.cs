@@ -57,7 +57,7 @@ public class MachineController : MonoBehaviour
     {
         //캐릭터 소유 금액 -= 업그레이드 필요금액;
         Debug.Log(selectUpgrade.RequireCoin);
-        if(CameraTest.money - selectUpgrade.RequireCoin < 0)
+        if(GameManager.Instance.playerGold - selectUpgrade.RequireCoin < 0)
         {
             UIManager.Instance.MachineUI.upgradeFail.SetActive(true);
             Debug.Log("업그레이드 실패");
@@ -65,7 +65,7 @@ public class MachineController : MonoBehaviour
         else
         {
             UIManager.Instance.MachineUI.upgradeSuccess.SetActive(true);
-            CameraTest.money -= selectUpgrade.RequireCoin;
+            GameManager.Instance.playerGold -= selectUpgrade.RequireCoin;
             isUpgrades[farm.Upgrades.IndexOf(selectUpgrade)] = true;
             farmMachine.StartFunction(selectUpgrade.UpgradeName);
             UIManager.Instance.MachineUI.CountUpgradeList();
