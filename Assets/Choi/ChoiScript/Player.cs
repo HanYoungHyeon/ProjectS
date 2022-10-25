@@ -18,6 +18,8 @@ namespace BC
         [SerializeField]
         Transform leftHand;
         [SerializeField]
+        GameObject uiPhone;
+        [SerializeField]
         CharacterController objectCharacterController;
 
         RaycastHit movementHit;
@@ -54,6 +56,12 @@ namespace BC
                 transform.position = movePointObject.transform.position + new Vector3(0, 0.75f, 0);
                 movePointObject.SetActive(false);
             }
+            if(OVRInput.GetDown(OVRInput.Button.One))
+            {
+                uiPhone.SetActive(uiPhone.activeSelf);
+            }
+
+
         }
 
    
