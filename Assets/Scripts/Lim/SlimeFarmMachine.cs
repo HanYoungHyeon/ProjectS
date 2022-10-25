@@ -17,6 +17,7 @@ public class SlimeFarmMachine : MonoBehaviour
 
     public void HighWallUpgrade()
     {
+        Debug.Log("올라갑니다");
         upgradeObject[0].transform.position = upgradeObject[0].transform.position + Vector3.up*2;
     }
     public void AirNetUpgrade()

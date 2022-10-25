@@ -10,6 +10,8 @@ public class MachineController : MonoBehaviour
     [SerializeField]
     private FarmMachine farmMachine;
     [SerializeField]
+    private SlimeFarmMachine slimeMachine;
+    [SerializeField]
     private GameObject machineUI;
     public List<GameObject> upgradeList = new List<GameObject>();
     public List<bool> isUpgrades = new List<bool>();
@@ -67,7 +69,14 @@ public class MachineController : MonoBehaviour
             UIManager.Instance.MachineUI.upgradeSuccess.SetActive(true);
             GameManager.Instance.playerGold -= selectUpgrade.RequireCoin;
             isUpgrades[farm.Upgrades.IndexOf(selectUpgrade)] = true;
-            farmMachine.StartFunction(selectUpgrade.UpgradeName);
+            if(farm.name == "PlantFarm")
+            {
+                farmMachine.StartFunction(selectUpgrade.UpgradeName);
+            }
+            else if(farm.name == "SlimeFarm")
+            {
+                slimeMachine.StartFunction(selectUpgrade.UpgradeName);
+            }
             UIManager.Instance.MachineUI.CountUpgradeList();
             Debug.Log("업그레이드 성공");
         }  
