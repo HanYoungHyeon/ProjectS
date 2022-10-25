@@ -37,7 +37,9 @@ namespace BC
         private float idleCount;
         private bool isFlying;
         private float hungry;
-        private UnityAction vaccumCheck;
+        private float agentDelay;
+        private float agentDelayCount;
+        private UnityAction<float> vaccumCheck;
         public UnityAction returnAcition;
         private NavMeshHit navHit;
 
@@ -67,8 +69,13 @@ namespace BC
         }
         private void FixedUpdate()
         {
-            vaccumCheck?.Invoke();
+            vaccumCheck?.Invoke(agentDelay);
             if (isFlying) return;
+            hungry += Time.fixedDeltaTime;
+            if(hungry>=300)
+            {
+                FindFeed();
+            }
             animator.SetFloat(Parameter.speed, agent.velocity.magnitude);
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
@@ -80,14 +87,7 @@ namespace BC
                 }
                 else
                 {
-                    if(hungry>300)
-                    {
-                        FindFeed();
-                    }
-                    else
-                    {
-                        SlimeJump();
-                    }
+                    SlimeJump();
                 }
             }
         }
@@ -148,24 +148,44 @@ namespace BC
             agent.enabled = false;
             animator.applyRootMotion = true;
             rigi.isKinematic = true;
+            rigi.useGravity = true;
             isFlying = true;
             returnAcition?.Invoke();
             home.Return(this.gameObject);
         }
 
-        public void MoveStop()
+        public void MoveStop()=> MoveStop(0);
+        public void MoveStop(float delay)
         {
             isFlying = true;
+            rigi.useGravity = false;
             rigi.isKinematic = false;
             animator.applyRootMotion = false;
             agent.enabled = false;
+            agentDelay = delay;
             vaccumCheck = VacuumCheck;
         }
-        private void VacuumCheck()
+
+
+        private void VacuumCheck(float delay)
         {
             vacuumColliders[0] = null;
             Physics.OverlapSphereNonAlloc(transform.position + new Vector3(0, 0.27f, 0), 0.35f, vacuumColliders, vacuumMask, QueryTriggerInteraction.Collide);
             if (vacuumColliders[0] != null) return;
+            if(delay != 0)
+            {
+                agentDelayCount += Time.fixedDeltaTime;
+                if(agentDelayCount<agentDelay)
+                {
+                    return;
+                }
+                else
+                {
+                    agentDelayCount = 0;
+                    agentDelay = 0;
+                }
+            }
+            rigi.useGravity = true;
             if (!NavMesh.SamplePosition(transform.position,out navHit,0.3f,NavMesh.AllAreas)) return;
             rigi.isKinematic = true;
             agent.enabled = true;
