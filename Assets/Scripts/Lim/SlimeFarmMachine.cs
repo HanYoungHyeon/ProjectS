@@ -15,6 +15,13 @@ public class SlimeFarmMachine : MonoBehaviour
 
     public LayerMask playerLayer;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            StartFunction("HighWallUpgrade");
+        }
+    }
     public void HighWallUpgrade()
     {
         upgradeObject[0].transform.position = upgradeObject[0].transform.position + Vector3.up*2;
