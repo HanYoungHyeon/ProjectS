@@ -20,7 +20,7 @@ public class EggplantSpawnZone : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(ray, out hit, groundMask);
         hitPosition = hit.point;
-        //hitPosition.y += 0.25f;
-        objectPoolCall.eggplantPosition = hitPosition;
+        ////hitPosition.y += 0.25f;
+        //objectPoolCall.eggplantPosition = hitPosition;
     }
 }

@@ -21,6 +21,6 @@ public class TomatoSpawnZone : MonoBehaviour
         Physics.Raycast(ray, out hit, groundMask);
         hitPosition = hit.point;
         //hitPosition.y += 0.25f;
-        objectPoolCall.tomatoPosition = hitPosition;
+        //objectPoolCall.tomatoPosition = hitPosition;
     }
 }

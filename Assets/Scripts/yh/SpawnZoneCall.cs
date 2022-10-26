@@ -12,10 +12,12 @@ public class SpawnZoneCall : MonoBehaviour
     GameObject forest;
     [SerializeField]
     GameObject yard;
+    private WaitForSeconds wait = new WaitForSeconds(5f);
     void Start()
     {
         StartCoroutine(TurnOn());
     }
+
 
     
     IEnumerator TurnOn()
@@ -23,13 +25,13 @@ public class SpawnZoneCall : MonoBehaviour
         while(true)
         {
             mountain.SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return wait;
             lake.SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return wait;
             forest.SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return wait;
             yard.SetActive(true);
-            yield return new WaitForSeconds(5f);
+            yield return wait;
         }
     }
 }

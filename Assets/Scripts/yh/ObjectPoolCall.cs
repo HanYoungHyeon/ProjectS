@@ -4,116 +4,49 @@ using UnityEngine;
 
 public class ObjectPoolCall : MonoBehaviour
 {
-    [SerializeField]
-    GameObject slime;
-    [SerializeField]
-    GameObject carrot;
-    [SerializeField]
-    GameObject corn;
-    [SerializeField]
-    GameObject eggplant;
-    [SerializeField]
-    GameObject pumpkin;
-    [SerializeField]
-    GameObject tomato;
-    ObjectPool objectPool;
-    ObjectPool carrotPool;
-    ObjectPool cornPool;
-    ObjectPool eggplantPool;
-    ObjectPool pumpkinPool;
-    ObjectPool tomatoPool;
 
     [SerializeField]
-    List<GameObject> slimes = new List<GameObject>();
+    private int maxPlantAmount;
+    private int curPlantAmount;
+    WaitForSeconds oneSecond = new WaitForSeconds(1f);
+    WaitUntil plantCount;
     [SerializeField]
-    List<GameObject> plants = new List<GameObject>();
-    public Vector3 spawnPosition;
-    public Vector3 carrotPosition;
-    public Vector3 cornPosition;
-    public Vector3 eggplantPosition;
-    public Vector3 pumpkinPosition;
-    public Vector3 tomatoPosition;
+    private Plant[] plantData;
     [SerializeField]
-    int maxSlimeAmount;
-    public int curSlimeAmount;
-    [SerializeField]
-    int maxPlantAmount;
-    public int curPlantAmount;
+    LayerMask groundMask;
+    Vector3 hitPosition;
+    Vector3 randomPosition;
+    float range_x;
+    float range_z;
+
 
     private void Awake()
     {
-        curSlimeAmount = 0;
-        maxSlimeAmount = 15;
-        curPlantAmount = 0;
-        maxPlantAmount = 15;
-        objectPool = ObjectPoolManager.Instance.PoolRequest(slime, 45, 5);
-        carrotPool = ObjectPoolManager.Instance.PoolRequest(carrot, 3, 5);
-        cornPool = ObjectPoolManager.Instance.PoolRequest(corn, 3, 5);
-        eggplantPool = ObjectPoolManager.Instance.PoolRequest(eggplant, 3, 5);
-        pumpkinPool = ObjectPoolManager.Instance.PoolRequest(pumpkin, 3, 5);
-        tomatoPool = ObjectPoolManager.Instance.PoolRequest(tomato, 3, 5);
+        plantCount = new WaitUntil(() => curPlantAmount < maxPlantAmount);
     }
-    private void Start()
+  
+    public Vector3 SpawnPosition()
     {
-        StartCoroutine(CheckSlime());
+        range_x = Random.Range(transform.position.x, transform.position.x + 10);
+        range_z = Random.Range(transform.position.z, transform.position.z + 10);
+        randomPosition = new Vector3(range_x, transform.position.y, range_z);
+        Ray ray = new Ray(randomPosition, Vector3.down);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, groundMask);
+        hitPosition = hit.point;
+        return hitPosition;
     }
-
-    IEnumerator CheckSlime()
+    private IEnumerator Start()
     {
-        bool isSlimeCount = true;
-          while (isSlimeCount)
-         {
-            if (curSlimeAmount < maxSlimeAmount)
-            {
-                yield return new WaitForSeconds(1f);
-                objectPool.Call(spawnPosition, Quaternion.identity).TryGetComponent(out BC.SceneSlime callSlime);
-                slimes.Add(callSlime.gameObject);
-                callSlime.returnAcition -= WhenDieSlime;
-                callSlime.returnAcition += WhenDieSlime;
-                curSlimeAmount++;
-            }
-            else if (curSlimeAmount > maxSlimeAmount)
-            {
-                foreach (var go in slimes)
-                {
-                    go.transform.TryGetComponent(out BC.SceneSlime returnSlime);
-                    returnSlime.ItemReturn();
-                }
-            }
-            else if(curSlimeAmount == maxSlimeAmount)
-            {
-                yield return new WaitWhile(() => curSlimeAmount == maxSlimeAmount);
-            }
-            if (curPlantAmount < maxPlantAmount)
-            {
-                yield return new WaitForSeconds(1f);
-                plants.Add(carrotPool.Call(carrotPosition, Quaternion.identity).gameObject);
-                plants.Add(cornPool.Call(cornPosition, Quaternion.identity).gameObject);
-                plants.Add(eggplantPool.Call(eggplantPosition, Quaternion.identity).gameObject);
-                plants.Add(pumpkinPool.Call(pumpkinPosition, Quaternion.identity).gameObject);
-                plants.Add(tomatoPool.Call(tomatoPosition, Quaternion.identity).gameObject);
-                curPlantAmount += 5;
-            }
-            else if (curPlantAmount > maxPlantAmount)
-            {
-                foreach (var go in plants)
-                {
-                    plants.Remove(go);
-                    carrotPool.Return(go);
-                    cornPool.Return(go);
-                    eggplantPool.Return(go);
-                    carrotPool.Return(go);
-                    carrotPool.Return(go);
-                }
-            }  
+        while (true)
+        {
+            yield return plantCount;
+            ItemManager.Instance.CreateScenePlant(plantData[Random.Range(0, plantData.Length)], SpawnPosition());
+            curPlantAmount++;
+            yield return oneSecond;
         }
-      }
-
-
-    public void WhenDieSlime()
-    {
-        curSlimeAmount--;
     }
+
     /*private void Temp(BC.SceneSlime sceneSlime)
     {
         Debug.Log("실행 되나?");

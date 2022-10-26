@@ -21,6 +21,6 @@ public class CornSpawnZone : MonoBehaviour
         Physics.Raycast(ray, out hit, groundMask);
         hitPosition = hit.point;
         //hitPosition.y += 0.25f;
-        objectPoolCall.cornPosition = hitPosition;
+        //objectPoolCall.cornPosition = hitPosition;
     }
 }

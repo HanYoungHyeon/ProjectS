@@ -21,6 +21,6 @@ public class CarrotSpawnZone : MonoBehaviour
         Physics.Raycast(ray, out hit, groundMask);
         hitPosition = hit.point;
         //hitPosition.y += 0.25f;
-        objectPoolCall.carrotPosition = hitPosition;
+        //objectPoolCall.carrotPosition = hitPosition;
     }
 }

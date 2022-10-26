@@ -20,6 +20,6 @@ public class PumpkinSpawnZone : MonoBehaviour
         Physics.Raycast(ray, out hit, groundMask);
         hitPosition = hit.point;
         //hitPosition.y += 0.25f;
-        objectPoolCall.pumpkinPosition = hitPosition;
+        //objectPoolCall.pumpkinPosition = hitPosition;
     }
 }
