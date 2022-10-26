@@ -11,6 +11,7 @@ public class TimeManager : Singleton<TimeManager>
     public int dayCount { get; private set; }
     private WaitForSecondsRealtime realSecond;
     public UnityAction timeProgressAction;
+    public UnityAction dayProgressAction;
     private bool isPause;
 
     private IEnumerator Start()
@@ -25,6 +26,7 @@ public class TimeManager : Singleton<TimeManager>
                 {
                     gameSecond = 0;
                     dayCount++;
+                    dayProgressAction?.Invoke();
                 }
                 timeProgressAction?.Invoke();
             }
