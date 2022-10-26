@@ -13,33 +13,13 @@ public class FingerRay : MonoBehaviour
         {
             RaycastHit hit;
             Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, mask);//레이 발사 위치 조정
-            if (target == null)
+            if (hit.transform != null)
             {
-                if (hit.transform != null)
-                {
-                    target = hit.transform.GetComponent<UIEventFunc>();
-                    target?.OnClick.Invoke();
-                }
-            }
-            else if (target != null)
-            {
-                if (hit.transform != null)
-                {
-                    hit.transform.TryGetComponent(out UIEventFunc check);
-                    if (check != target)
-                    {
-                        target.OffClick.Invoke();
-                        target = check;
-                        target?.OnClick.Invoke();
-                    }
-                    else if (check == target)
-                    {
-                        target?.OnClick.Invoke();
-                    }
-                }
+                target = hit.transform.GetComponent<UIEventFunc>();
+                target?.OnClick.Invoke();
             }
         }
-        else if (target == null)
+        else if (target == null)//else 로 변경
         {
             if (target != null)
             {
