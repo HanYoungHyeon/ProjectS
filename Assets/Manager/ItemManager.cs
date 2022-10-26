@@ -48,9 +48,9 @@ public class ItemManager : Singleton<ItemManager>
     }
     public Transform CreateScenePlant(Plant plant, Vector3 position)
     {
-        Transform temp = plantObjectPool.Call(position);
-        temp.GetComponent<ScenePlant>().Plant = plant;
-        return temp;
+        plantObjectPool.Call(position).TryGetComponent(out ScenePlant targetPlant);
+        targetPlant.FirstSetting(plant);
+        return targetPlant.transform;
     }
     public Transform CreateSceneItem(Slime slime, Vector3 position)
     {

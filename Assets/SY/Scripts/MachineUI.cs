@@ -42,7 +42,7 @@ public class MachineUI : MonoBehaviour
     public void ShowInfo(Upgrade upgrade)
     {
         upgradeName.text = upgrade.UpgradeName;
-        upgradePrice.text = upgrade.RequireCoin + "";
+        upgradePrice.text = upgrade.RequireCoin + "G";
         upgradeInfo.text = upgrade.UpgradeInfo;
         upgradeImage.sprite = upgrade.UpgradeImage;
         machineUIController.selectUpgrade = upgrade;

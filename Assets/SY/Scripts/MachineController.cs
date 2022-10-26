@@ -29,30 +29,28 @@ public class MachineController : MonoBehaviour
         }
         selectFarm = farmListUI[0];
     }
-    private void Update()
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(Input.GetKeyDown(KeyCode.O))
+        UISwitch(selectFarm, other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        UISwitch(selectFarm, other);
+    }
+
+    public void UISwitch(GameObject selectFarm,Collider other)
+    {
+        if (other.TryGetComponent(out BC.Player player))
         {
-            OnUI(selectFarm);
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            OffUI(selectFarm);
-            if(isSelectedFarm == true)
+            selectFarm.SetActive(!selectFarm.activeSelf);
+            if (isSelectedFarm == true)
             {
                 UIManager.Instance.MachineUI.CountUpgradeList();
             }
         }
-    }
-
-    //상호작용했을 때
-    public void OnUI(GameObject selectFarm)
-    {
-        selectFarm.SetActive(true);
-    }
-    public void OffUI(GameObject selectFarm)
-    {
-        selectFarm.SetActive(false);
     }
 
     public void BuyUpgrade()

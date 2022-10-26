@@ -15,24 +15,23 @@ public class SlimeFarmMachine : MonoBehaviour
 
     public LayerMask playerLayer;
 
-    public void HighWallUpgrade()
+    public void HighWall()
     {
-        Debug.Log("올라갑니다");
         upgradeObject[0].transform.position = upgradeObject[0].transform.position + Vector3.up*2;
     }
-    public void AirNetUpgrade()
+    public void AirNet()
     {
         upgradeObject[1].SetActive(true);
     }
-    public void AutoGemUpgrade()
+    public void AutoGem()
     {
         upgradeObject[2].SetActive(true);
     }
-    public void AutoFeedUpgrade()
+    public void AutoFeed()
     {
         upgradeObject[3].SetActive(true);
     }
-    public void MusicBoxUpgrade()
+    public void MusicBox()
     {
         upgradeObject[4].SetActive(true);
     }
